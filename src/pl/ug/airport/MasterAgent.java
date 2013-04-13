@@ -5,6 +5,9 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
+/*
+ * DUMMY, nie uzywany agent-demo
+ */
 public class MasterAgent extends Agent{
 
 	@Override
@@ -12,7 +15,7 @@ public class MasterAgent extends Agent{
 		//zainicjuj agenta, uruchom jego zachowania
 		
 		//TODO: czy master jest konieczny? moze sie on stac waskim gardlem. do przegadania
-		//master powinien odbierac sygnaly od pozostalych agentow i przekazywac je dalej
+		//master moglby odbierac sygnaly od pozostalych agentow i przekazywac je dalej
 		Behaviour proxyRequests = new CyclicBehaviour(this) {
 			@Override
 			public void action() {
