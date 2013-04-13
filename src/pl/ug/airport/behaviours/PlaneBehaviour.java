@@ -1,5 +1,6 @@
 package pl.ug.airport.behaviours;
 
+import pl.ug.airport.agents.PlaneAgent;
 import pl.ug.airport.helpers.AirportLogger;
 import pl.ug.airport.helpers.PlaneStatus;
 import pl.ug.airport.messages.AgentAddresses;
@@ -11,24 +12,17 @@ import jade.lang.acl.ACLMessage;
 
 public class PlaneBehaviour extends CyclicBehaviour {
 
-	private Agent agent;
+	private PlaneAgent agent;
 
 	private String TAG = "PlaneAgent: ";
 
-	//it should be moved into the plane agent class
-	private boolean flightReady = true;
-	private boolean crewReady = true;
-	private boolean scheduled = false;
-	
-	private PlaneStatus planeStatus = PlaneStatus.AT_AIRPORT;
-
-	public PlaneBehaviour(Agent _agent) {
+	public PlaneBehaviour(PlaneAgent _agent) {
 		agent = _agent;
 	}
 
 	@Override
 	public void action() {
-		if(scheduled && flightReady && crewReady){
+		if(agent.isScheduled() && agent.isFlightReady() && agent.isCrewReady()){
 			takeoff();
 			return;
 		}
@@ -51,32 +45,32 @@ public class PlaneBehaviour extends CyclicBehaviour {
 	}
 
 	private void handleAirportMessage(StringMessages message) {
-		if (planeStatus != PlaneStatus.AT_AIRPORT) {
+		if (agent.getPlaneStatus() != PlaneStatus.AT_AIRPORT) {
 			switch (message) {
 			case LEAVING_AT:
 				AirportLogger.log(TAG + "Was scheduled for departure");
-				if (!flightReady) {
+				if (!agent.isFlightReady()) {
 					AirportLogger.log(TAG + "Was scheduled for departure - needs service");
 					this.send(AgentAddresses.getTechServiceAgentAddress(),
 							StringMessages.REQUEST_INSPECTION);
 				}
-				if (!crewReady) {
+				if (!agent.isCrewReady()) {
 					AirportLogger
 							.log(TAG + "Was scheduled for departure - crew not on board");
 					this.send(AgentAddresses.getStaffAgentAddress(),
 							StringMessages.REQUEST_INSPECTION);
 				}
 				
-				scheduled = true;
+				agent.setScheduled(true);
 				
 				break;
 			case PLANE_READY:
 				AirportLogger.log(TAG + "Was inspected");
-				flightReady = true;
+				agent.setFlightReady(true);
 				break;
 			case BOARD_PLANE:
 				AirportLogger.log(TAG + "Crew entered the plane");
-				crewReady = true;
+				agent.setCrewReady(true);
 				break;
 			default:
 				AirportLogger.log(TAG + "Unknown message received " + message);
@@ -85,7 +79,7 @@ public class PlaneBehaviour extends CyclicBehaviour {
 	}
 
 	private void sendMessages() {
-		switch (planeStatus) {
+		switch (agent.getPlaneStatus()) {
 		case AT_AIRPORT: 
 			AirportLogger.log(TAG + "Passangers have left the plane");
 			this.send(AgentAddresses.getPassangerServiceAgentAddress(),
@@ -119,15 +113,15 @@ public class PlaneBehaviour extends CyclicBehaviour {
 	private void takeoff(){
 		this.send(AgentAddresses.getFlightAgentAddress(),
 				StringMessages.TAKE_OFF);
-		planeStatus = PlaneStatus.AT_FLIGHT;
+		agent.setPlaneStatus(PlaneStatus.AT_FLIGHT);
 	}
 
 	private void land() {
-		planeStatus = PlaneStatus.AT_AIRPORT;
+		agent.setPlaneStatus(PlaneStatus.AT_AIRPORT);
 	}
 
 	private void prepareToLand() {
-		planeStatus = PlaneStatus.LANDING;
+		agent.setPlaneStatus(PlaneStatus.LANDING);
 	}
 	
 }
