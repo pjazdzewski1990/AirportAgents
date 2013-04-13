@@ -3,6 +3,7 @@ package pl.ug.airport.messages;
 import org.omg.CORBA.DynAnyPackage.Invalid;
 
 public enum StringMessages {
+	
 	RESPONSE_OK,
 	RESPONSE_REPEAT,
 	//flight control agent
