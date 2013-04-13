@@ -19,6 +19,7 @@ public enum StringMessages {
 	REQUEST_LANDING,
 	PASSANGERS_LEFT,
 	REQUEST_INSPECTION,
+	TAKE_OFF,
 	//staff assignment agent
 	BOARD_PLANE,
 	//tech service agent
@@ -28,6 +29,7 @@ public enum StringMessages {
 		switch(str){
 			case "RESPONSE_OK": return RESPONSE_OK; 
 			case "RESPONSE_REPEAT": return RESPONSE_REPEAT;
+			
 			case "LEAVING_AT": return LEAVING_AT;
 			case "FLIGHTPLAN_WAS_CHANGED": return FLIGHTPLAN_WAS_CHANGED;
 			case "RESERVATION": return RESERVATION;
@@ -37,6 +39,8 @@ public enum StringMessages {
 			case "REQUEST_LANDING": return REQUEST_LANDING;
 			case "PASSANGERS_LEFT": return PASSANGERS_LEFT;
 			case "REQUEST_INSPECTION": return REQUEST_INSPECTION;
+			case "TAKE_OFF": return TAKE_OFF;
+			
 			case "BOARD_PLANE": return BOARD_PLANE;
 			case "PLANE_READY": return PLANE_READY;
 			default: throw new IllegalArgumentException("String " + str + " is an illegal enum");

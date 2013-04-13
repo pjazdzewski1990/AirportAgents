@@ -1,6 +1,5 @@
 package pl.ug.airport.behaviours;
 
-import pl.ug.airport.agents.TechServiceAgent;
 import pl.ug.airport.helpers.AirportLogger;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
