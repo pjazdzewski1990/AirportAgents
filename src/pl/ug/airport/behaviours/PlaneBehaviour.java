@@ -45,7 +45,7 @@ public class PlaneBehaviour extends CyclicBehaviour {
 	}
 
 	private void handleAirportMessage(StringMessages message) {
-		if (agent.getPlaneStatus() != PlaneStatus.AT_AIRPORT) {
+		if (agent.getPlaneStatus() == PlaneStatus.AT_AIRPORT) {
 			switch (message) {
 			case LEAVING_AT:
 				AirportLogger.log(TAG + "Was scheduled for departure");
