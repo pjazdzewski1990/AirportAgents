@@ -16,7 +16,7 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 
 	private FlightControlAgent agent;
 
-	private String TAG = "PlaneAgent: ";
+	private String TAG = "FlightControlAgent: ";
 	
 	public FlightControlBehaviour(FlightControlAgent _agent){
 		agent = _agent;
@@ -32,9 +32,8 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 		ACLMessage rec = agent.receive();
 		if (rec != null) {
 			AirportLogger.log(TAG + "Received: " + rec.getContent());
-			StringMessages message;
 			try {
-				message = StringMessages.parseString(rec.getContent());
+				StringMessages message = StringMessages.parseString(rec.getContent());
 				handleAirportMessage(message);
 			} catch(IllegalArgumentException ex){}
 		}else{
@@ -51,6 +50,9 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 			AirportLogger.log(TAG + "Plane is requesting landing permission. Granted");
 			agent.setAvailablePlanes( agent.getAvailablePlanes() + 1 );
 			break;	
+		case PASSANGERS_LEFT:
+			AirportLogger.log(TAG + "Passangers have left the plane");
+			break;
 		case TAKE_OFF:
 			AirportLogger.log(TAG + "Plane is leaving the airport. Bye");
 			agent.setAvailablePlanes( agent.getAvailablePlanes() - 1 );

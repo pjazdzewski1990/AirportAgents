@@ -15,9 +15,7 @@ public class PassangerBehaviour extends Behaviour {
 	
 	public PassangerBehaviour(Agent _agent) {
 		this.agent = _agent;
-
 	}
-
 	
 	@Override
 	public void action() {
