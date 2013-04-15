@@ -27,9 +27,7 @@ public class TechServiceBehaviour extends CyclicBehaviour {
 			try{
 				message = StringMessages.parseString(rec.getContent());
 				handleAirportMessage(message);
-			} catch(Exception e) {
-				
-			}
+			} catch(IllegalArgumentException ex){}
 		}else{
 			block();
 		}

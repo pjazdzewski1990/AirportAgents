@@ -23,8 +23,10 @@ public class PassangerBehaviour extends Behaviour {
 	public void action() {
 		ACLMessage msg = myAgent.receive();
 		if (msg != null) {
-			StringMessages messageStr = StringMessages.parseString(msg.getContent());
-			messageHandler(messageStr);
+			try{
+				StringMessages messageStr = StringMessages.parseString(msg.getContent());
+				messageHandler(messageStr);
+			} catch(IllegalArgumentException ex){}	
 		}
 		else {
 			block();
