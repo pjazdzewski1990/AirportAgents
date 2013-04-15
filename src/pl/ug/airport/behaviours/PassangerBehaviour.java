@@ -21,7 +21,7 @@ public class PassangerBehaviour extends Behaviour {
 	
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
+		
 			ACLMessage msg = myAgent.receive();
 			if (msg != null) {
 				StringMessages messageStr = StringMessages.parseString(msg.getContent());

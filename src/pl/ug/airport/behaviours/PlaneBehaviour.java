@@ -116,12 +116,18 @@ public class PlaneBehaviour extends CyclicBehaviour {
 		agent.setPlaneStatus(PlaneStatus.AT_FLIGHT);
 	}
 
+	
 	private void land() {
 		agent.setPlaneStatus(PlaneStatus.AT_AIRPORT);
 	}
 
 	private void prepareToLand() {
 		agent.setPlaneStatus(PlaneStatus.LANDING);
+	}
+	
+	private void callCrew() {
+		StringMessages rsv = StringMessages.REQUEST_CREW;
+		send(AgentAddresses.getStaffAgentAddress(), rsv);
 	}
 	
 }
