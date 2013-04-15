@@ -23,14 +23,14 @@ public class PassangerServiceBehaviour extends CyclicBehaviour {
 	@Override
 	public void action() {
 		// TODO Auto-generated method stub
-			ACLMessage msg = myAgent.receive();
-			if (msg != null) {
-				StringMessages messageStr = StringMessages.parseString(msg.getContent());
-				messageHandler(messageStr);
-			}
-			else {
+		ACLMessage msg = myAgent.receive();
+		if (msg != null) {
+			StringMessages messageStr = StringMessages.parseString(msg.getContent());
+			messageHandler(messageStr);
+		}
+		else {
 			block();
-			} 
+		} 
 	}
 	
 	private void messageHandler(StringMessages messageStr) {

@@ -41,6 +41,8 @@ public class PlaneBehaviour extends CyclicBehaviour {
 			} catch (Exception e) {
 
 			}
+		}else{
+			block();
 		}
 	}
 

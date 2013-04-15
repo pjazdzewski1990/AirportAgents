@@ -39,6 +39,8 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 			} catch (Exception e) {
 
 			}
+		}else{
+			block();
 		}
 	}
 	

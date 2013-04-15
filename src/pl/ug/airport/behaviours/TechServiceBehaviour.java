@@ -30,6 +30,8 @@ public class TechServiceBehaviour extends CyclicBehaviour {
 			} catch(Exception e) {
 				
 			}
+		}else{
+			block();
 		}
 	}
 	
