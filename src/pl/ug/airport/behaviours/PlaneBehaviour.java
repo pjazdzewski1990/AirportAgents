@@ -24,24 +24,22 @@ public class PlaneBehaviour extends CyclicBehaviour {
 	public void action() {
 		if(agent.isScheduled() && agent.isFlightReady() && agent.isCrewReady()){
 			takeoff();
-			return;
+			//block();
 		}
-		receiveMessages();
-		sendMessages();
-	}
-
-	public void receiveMessages() {
 		ACLMessage rec = agent.receive();
-		if (rec != null) {
-			AirportLogger.log(TAG + "Received: " + rec.getContent());
-			StringMessages message;
-			try {
-				message = StringMessages.parseString(rec.getContent());
-				handleAirportMessage(message);
-			} catch(IllegalArgumentException ex){}
+		if(rec != null){
+			receiveMessages(rec);
 		}else{
 			block();
+			sendMessages();
 		}
+	}
+
+	public void receiveMessages(ACLMessage rec) {
+		try {
+			StringMessages message = StringMessages.parseString(rec.getContent());
+			handleAirportMessage(message);
+		} catch(IllegalArgumentException ex){}
 	}
 
 	private void handleAirportMessage(StringMessages message) {
@@ -54,15 +52,14 @@ public class PlaneBehaviour extends CyclicBehaviour {
 					this.send(AgentAddresses.getTechServiceAgentAddress(),
 							StringMessages.REQUEST_INSPECTION);
 				}
+				
 				if (!agent.isCrewReady()) {
-					AirportLogger
-							.log(TAG + "Was scheduled for departure - crew not on board");
+					AirportLogger.log(TAG + "Was scheduled for departure - crew not on board");
 					this.send(AgentAddresses.getStaffAgentAddress(),
 							StringMessages.REQUEST_INSPECTION);
 				}
 				
 				agent.setScheduled(true);
-				
 				break;
 			case PLANE_READY:
 				AirportLogger.log(TAG + "Was inspected");
@@ -88,7 +85,7 @@ public class PlaneBehaviour extends CyclicBehaviour {
 					StringMessages.PASSANGERS_LEFT);
 			break;
 		case AT_FLIGHT:
-			AirportLogger.log(TAG + "Ready to land");
+			AirportLogger.log(TAG + "Up in the sky");
 			this.send(AgentAddresses.getFlightAgentAddress(),
 				StringMessages.CLOSE_TO_AIRPORT);
 			prepareToLand();

@@ -24,21 +24,20 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 	
 	@Override
 	public void action() {
-		receiveMessages();
-		sendMessages();
-	}
-
-	public void receiveMessages() {
 		ACLMessage rec = agent.receive();
 		if (rec != null) {
-			AirportLogger.log(TAG + "Received: " + rec.getContent());
-			try {
-				StringMessages message = StringMessages.parseString(rec.getContent());
-				handleAirportMessage(message);
-			} catch(IllegalArgumentException ex){}
+			receiveMessages(rec);
 		}else{
+			sendMessages();
 			block();
 		}
+	}
+
+	public void receiveMessages(ACLMessage rec) {
+		try {
+			StringMessages message = StringMessages.parseString(rec.getContent());
+			handleAirportMessage(message);
+		} catch(IllegalArgumentException ex){}
 	}
 	
 	private void handleAirportMessage(StringMessages message) {
