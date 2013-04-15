@@ -25,7 +25,7 @@ public class StaffAssignmentBehaviour extends Behaviour {
 			messageHandler(messageStr);
 		}
 		else {
-		block();
+			block();
 		} 
 			
 	}
@@ -34,7 +34,7 @@ public class StaffAssignmentBehaviour extends Behaviour {
 		switch(messageStr) {
 		case REQUEST_CREW:
 			AirportLogger.log(TAG + " Sending crew");
-			//send(AgentAddresses.getPassangerAgentAddress(1), StringMessages.RESPONSE_OK);
+			sendCrew();
 			break;
 			
 		case LEAVING_AT:

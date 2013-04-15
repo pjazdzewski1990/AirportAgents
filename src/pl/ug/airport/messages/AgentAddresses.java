@@ -4,12 +4,12 @@ public class AgentAddresses {
 	
 	private static String baseAddress = "";
 	
-	private static String planeAgentAddress = "jade_plane_";
-	private static String passangerAgentAddress = "jade_passanger_";
-	private static String passangerServiceAgentAddress = "jade_service_passanger";
-	private static String techServiceAgentAddress = "jade_service_tech";
-	private static String flightAgentAddress = "jade_control_flight";
-	private static String staffAgentAddress = "jade_control_staff";
+	private static String planeAgentAddress = "plane_";
+	private static String passangerAgentAddress = "passanger_";
+	private static String passangerServiceAgentAddress = "service_passanger";
+	private static String techServiceAgentAddress = "service_tech";
+	private static String flightAgentAddress = "control_flight";
+	private static String staffAgentAddress = "control_staff";
 	
 	private static String lang = "Polish"; 
 	
