@@ -9,15 +9,7 @@ import jade.core.Agent;
  */
 public class PassangerServiceAgent extends Agent {
 	
-	
-	
-	private PassangerServiceBehaviour mainBhv;
-	
-	public PassangerServiceAgent() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	protected void setup() {
-		addBehaviour(mainBhv);
+		addBehaviour(new PassangerServiceBehaviour(this));
 	}
 }
