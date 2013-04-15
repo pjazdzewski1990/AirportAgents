@@ -5,17 +5,9 @@ import jade.core.Agent;
 
 public class PassangerAgent extends Agent{
 	
-	
-	
-	private PassangerBehaviour mainBhv;
-	
-	public PassangerAgent() {
-
-	}
-	
+	@Override
 	protected void setup() {
-		
-		addBehaviour(mainBhv);
+		addBehaviour(new PassangerBehaviour(this));
 	}
 
 }

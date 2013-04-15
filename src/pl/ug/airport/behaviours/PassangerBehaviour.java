@@ -36,12 +36,12 @@ public class PassangerBehaviour extends Behaviour {
 	private void messageHandler(StringMessages messageStr) {
 		switch(messageStr) {
 		case INFORM_ABOUT_CHANGES:
-			AirportLogger.log(TAG + " Updating information");
-			send(AgentAddresses.getPassangerAgentAddress(1), StringMessages.RESPONSE_OK);
+			AirportLogger.log(TAG + " Updating flight information");
+			//send(AgentAddresses.getPassangerAgentAddress(1), StringMessages.RESPONSE_OK);
 			break;
 			
-		case LEAVING_AT:
-			AirportLogger.log(TAG + " Preparation for flight");
+		case INFORM_ABOUT_FLIGHT:
+			AirportLogger.log(TAG + " Reminded about flight");
 			break;
 			
 		default:
@@ -70,7 +70,7 @@ public class PassangerBehaviour extends Behaviour {
 	//sending functions
 	private void reserveFlight() {
 		StringMessages rsv = StringMessages.RESERVATION;
-		send(AgentAddresses.getPassangerAgentAddress(1), rsv);
+		send(AgentAddresses.getPassangerAgentAddress(0), rsv);
 		
 	}
 

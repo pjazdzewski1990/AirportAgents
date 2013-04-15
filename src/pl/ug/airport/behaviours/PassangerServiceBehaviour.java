@@ -18,8 +18,6 @@ public class PassangerServiceBehaviour extends CyclicBehaviour {
 
 	}
 	
-
-	
 	@Override
 	public void action() {
 		// TODO Auto-generated method stub
@@ -39,7 +37,7 @@ public class PassangerServiceBehaviour extends CyclicBehaviour {
 		switch(messageStr) {
 		case RESERVATION:
 			AirportLogger.log(TAG + " Saving Reservation");
-			send(AgentAddresses.getPassangerAgentAddress(1), StringMessages.RESPONSE_OK);
+			//send(AgentAddresses.getPassangerAgentAddress(1), StringMessages.RESPONSE_OK);
 			break;
 			
 		case PASSANGERS_LEFT:
@@ -48,16 +46,17 @@ public class PassangerServiceBehaviour extends CyclicBehaviour {
 			
 		case INFORM_ABOUT_CHANGES:
 			AirportLogger.log(TAG + " Changes recived");
+			send(AgentAddresses.getPassangerAgentAddress(0), StringMessages.INFORM_ABOUT_CHANGES);
 			break;
 			
 		case LEAVING_AT:
 			AirportLogger.log(TAG + " Saving flight data");
+			send(AgentAddresses.getPassangerAgentAddress(0), StringMessages.INFORM_ABOUT_FLIGHT);
 			break;
+			
 		default:
 			AirportLogger.log(TAG + "Unknown message received " + messageStr);
 			break;
-
-	
 		}
 		
 	}
