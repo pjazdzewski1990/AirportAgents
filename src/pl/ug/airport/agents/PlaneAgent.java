@@ -11,9 +11,9 @@ import jade.core.behaviours.Behaviour;
  */
 public class PlaneAgent extends Agent {
 	
-	//it should be moved into the plane agent class
-	private boolean flightReady = true;
-	private boolean crewReady = true;
+	private boolean passangersOnBoard = true;
+	private boolean flightReady = false;
+	private boolean crewReady = false;
 	private boolean scheduled = false;
 	
 	private PlaneStatus planeStatus = PlaneStatus.AT_AIRPORT;
@@ -24,6 +24,14 @@ public class PlaneAgent extends Agent {
 		this.addBehaviour(plane);
 	}
 
+	public boolean isPassangersOnBoard() {
+		return passangersOnBoard;
+	}
+
+	public void setPassangersOnBoard(boolean passangersOnBoard) {
+		this.passangersOnBoard = passangersOnBoard;
+	}
+	
 	public boolean isFlightReady() {
 		return flightReady;
 	}

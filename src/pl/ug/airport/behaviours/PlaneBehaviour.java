@@ -23,6 +23,7 @@ public class PlaneBehaviour extends CyclicBehaviour {
 	@Override
 	public void action() {
 		if(agent.isScheduled() && agent.isFlightReady() && agent.isCrewReady()){
+			agent.setPassangersOnBoard(true);
 			takeoff();
 			//block();
 		}
@@ -47,6 +48,7 @@ public class PlaneBehaviour extends CyclicBehaviour {
 			switch (message) {
 			case LEAVING_AT:
 				AirportLogger.log(TAG + "Was scheduled for departure");
+				
 				if (!agent.isFlightReady()) {
 					AirportLogger.log(TAG + "Was scheduled for departure - needs service");
 					this.send(AgentAddresses.getTechServiceAgentAddress(),
@@ -56,7 +58,7 @@ public class PlaneBehaviour extends CyclicBehaviour {
 				if (!agent.isCrewReady()) {
 					AirportLogger.log(TAG + "Was scheduled for departure - crew not on board");
 					this.send(AgentAddresses.getStaffAgentAddress(),
-							StringMessages.REQUEST_INSPECTION);
+							StringMessages.REQUEST_CREW);
 				}
 				
 				agent.setScheduled(true);
@@ -78,18 +80,21 @@ public class PlaneBehaviour extends CyclicBehaviour {
 	private void sendMessages() {
 		switch (agent.getPlaneStatus()) {
 		case AT_AIRPORT: 
-			AirportLogger.log(TAG + "Passangers have left the plane");
-			this.send(AgentAddresses.getPassangerServiceAgentAddress(),
-				StringMessages.PASSANGERS_LEFT);
-			this.send(AgentAddresses.getFlightAgentAddress(),
-					StringMessages.PASSANGERS_LEFT);
+			if(agent.isPassangersOnBoard()){
+				AirportLogger.log(TAG + "Passangers have left the plane");
+				agent.setPassangersOnBoard(false);
+				this.send(AgentAddresses.getPassangerServiceAgentAddress(),
+						StringMessages.PASSANGERS_LEFT);
+				this.send(AgentAddresses.getFlightAgentAddress(),
+						StringMessages.PASSANGERS_LEFT);
+			}
 			break;
 		case AT_FLIGHT:
 			AirportLogger.log(TAG + "Up in the sky");
 			this.send(AgentAddresses.getFlightAgentAddress(),
 				StringMessages.CLOSE_TO_AIRPORT);
 			prepareToLand();
-			break;
+			//break;
 		case LANDING: 
 			AirportLogger.log(TAG + "Is going to land");
 			land();
@@ -113,7 +118,6 @@ public class PlaneBehaviour extends CyclicBehaviour {
 		agent.setPlaneStatus(PlaneStatus.AT_FLIGHT);
 	}
 
-	
 	private void land() {
 		agent.setPlaneStatus(PlaneStatus.AT_AIRPORT);
 	}

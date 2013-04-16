@@ -50,10 +50,10 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 			agent.setAvailablePlanes( agent.getAvailablePlanes() + 1 );
 			break;	
 		case PASSANGERS_LEFT:
-			AirportLogger.log(TAG + "Passangers have left the plane");
+			AirportLogger.log(TAG + "Plane is empty");
 			break;
 		case TAKE_OFF:
-			AirportLogger.log(TAG + "Plane is leaving the airport. Bye");
+			AirportLogger.log(TAG + "Plane left the airport. Bye");
 			agent.setAvailablePlanes( agent.getAvailablePlanes() - 1 );
 			break;
 		case PLANE_READY:

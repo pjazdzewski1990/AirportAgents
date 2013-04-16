@@ -46,17 +46,13 @@ public class StaffAssignmentBehaviour extends Behaviour {
 			
 		default:
 			AirportLogger.log(TAG + "Unknown message received " + messageStr);
-			break;
-
-	
+			break;	
 		}
-		
 	}
 	
 	private void sendCrew() {
 		StringMessages rsv = StringMessages.BOARD_PLANE;
-		send(AgentAddresses.getPlaneAgentAddress(1), rsv);
-		
+		send(AgentAddresses.getPlaneAgentAddress(0), rsv);
 	}
 	
 	@Override
