@@ -1,0 +1,206 @@
+Prefix: dc: <http://purl.org/dc/elements/1.1/>
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+
+
+Ontology: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko>
+
+
+Annotations: 
+    rdfs:comment "Lotnisko"
+
+AnnotationProperty: rdfs:comment
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Odprawia_pasazera>
+
+    InverseOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Odprawia_sie>
+    
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Posiada_numer>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Zglasza_usterki>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Naprawia_samolot>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przydziela_Numer_klienta>
+
+    InverseOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Ma_numer_klienta>
+    
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Ma_numer_klienta>
+
+    InverseOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przydziela_Numer_klienta>
+    
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_stanie>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przydziela_zaloge>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_zmianach>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Rezerwuje_bilet>
+
+    InverseOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Sprzedaje_bilet>
+    
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przydziela_pas>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Uzupelnia_zapasy>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_polozeniu>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_zakonczeniu_prac>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Wysyla_na_przeglad>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Godzina_odlotu>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Posiada_zaloge>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Ma_Nazwisko>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Sprzedaje_bilet>
+
+    EquivalentTo: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Ma_liczbe_miejsc>
+    
+    InverseOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Rezerwuje_bilet>
+    
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Odprawia_sie>
+
+    InverseOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Odprawia_pasazera>
+    
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Godzina_przylotu>
+
+    
+ObjectProperty: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Ma_liczbe_miejsc>
+
+    EquivalentTo: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Sprzedaje_bilet>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Dreamliner>
+
+    SubClassOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>
+
+    EquivalentTo: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_stanie> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przyloty/odloty>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Posiada_numer> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Posiada_zaloge> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_stanie> exactly 1 <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przyloty/odloty>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Ma_liczbe_miejsc> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_stanie> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_techniczna>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_stanie> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_pasazera>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_polozeniu> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przyloty/odloty>
+    
+    SubClassOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Zglasza_usterki> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_techniczna>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przylot>
+
+    EquivalentTo: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Godzina_przylotu> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_pasazera>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Godzina_przylotu> exactly 1 <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przylot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przydziela_pas> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Godzina_przylotu> exactly 1 <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>
+    
+    SubClassOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przyloty/odloty>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_pasazera>
+
+    EquivalentTo: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Odprawia_pasazera> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Pasazer>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Sprzedaje_bilet> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Pasazer>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przydziela_Numer_klienta> exactly 1 <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Pasazer>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_zmianach> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Pasazer>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Awionetka>
+
+    SubClassOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_techniczna>
+
+    EquivalentTo: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_zakonczeniu_prac> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przyloty/odloty>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_zakonczeniu_prac> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Uzupelnia_zapasy> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przydziela_zaloge> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>
+    
+    SubClassOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Naprawia_samolot> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Odlot>
+
+    EquivalentTo: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Godzina_odlotu> exactly 1 <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Godzina_odlotu> exactly 1 <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Odlot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przydziela_pas> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Godzina_odlotu> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_pasazera>
+    
+    SubClassOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przyloty/odloty>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Przyloty/odloty>
+
+    EquivalentTo: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_zmianach> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_pasazera>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Informuje_o_zmianach> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_techniczna>
+    
+    SubClassOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Wysyla_na_przeglad> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Pasazer>
+
+    EquivalentTo: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Rezerwuje_bilet> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_pasazera>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Ma_Nazwisko> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Pasazer>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Odprawia_sie> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_pasazera>,
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Ma_numer_klienta> some <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Obsluga_pasazera>
+    
+    
+Class: <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#JamboJet>
+
+    SubClassOf: 
+        <http://www.semanticweb.org/michal/ontologies/2013/3/lotnisko#Samolot>
+    
+    
