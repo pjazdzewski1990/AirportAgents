@@ -142,6 +142,12 @@
         <DataProperty IRI="#Nazwisko_pracownika"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#Numer_id"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Numer_klienta"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="#Numer_lotu"/>
     </Declaration>
     <Declaration>
@@ -275,6 +281,13 @@
     <SubClassOf>
         <Class IRI="#Personel_lotniska"/>
         <DataSomeValuesFrom>
+            <DataProperty IRI="#Numer_id"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Personel_lotniska"/>
+        <DataSomeValuesFrom>
             <DataProperty IRI="#Stan_Samolotu"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
@@ -376,6 +389,13 @@
             <ObjectProperty IRI="#Zglasza_usterki"/>
             <Class IRI="#Przyloty/odloty"/>
         </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Samolot"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Numer_id"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
     </SubClassOf>
     <ClassAssertion>
         <Class IRI="#Personel_lotniska"/>
@@ -547,6 +567,20 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#Odprawia_pasazera"/>
         <DataSomeValuesFrom>
+            <DataProperty IRI="#Nazwisko"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Odprawia_pasazera"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Numer_klienta"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Odprawia_pasazera"/>
+        <DataSomeValuesFrom>
             <DataProperty IRI="#Stan_pasazera"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
@@ -583,6 +617,20 @@
         <ObjectProperty IRI="#Przekazuje_zmiany"/>
         <DataSomeValuesFrom>
             <DataProperty IRI="#Numer_lotu"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Przydziela_Numer_klienta"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Nazwisko"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Przydziela_Numer_klienta"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Numer_klienta"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
@@ -771,6 +819,14 @@
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#Nazwisko_pracownika"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Numer_id"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Numer_klienta"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
