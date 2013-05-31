@@ -10,12 +10,12 @@
 
 
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://www.semanticweb.org/michal/ontologies/2013/4/untitled-ontology-42"
+     xml:base="http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     ontologyIRI="http://www.semanticweb.org/michal/ontologies/2013/4/untitled-ontology-42">
+     ontologyIRI="http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko">
     <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
@@ -38,6 +38,9 @@
         <Class IRI="#Kontrola_lotow"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Lot"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Obsluga_techniczna"/>
     </Declaration>
     <Declaration>
@@ -47,28 +50,40 @@
         <Class IRI="#Personel_przewoznika"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Rozklad_lotow"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Samolot"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Informuje_o_zmianach"/>
+        <ObjectProperty IRI="#Informuje_o_transferze_pasazera"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Komunikuje_sie_z"/>
+        <ObjectProperty IRI="#Kupuje_bilet"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#Ma_bilet"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Ma_rozklad_lotow"/>
+        <ObjectProperty IRI="#Odbywa_rejs"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Obsluguje_pasazer"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#Odprawia_pasazera"/>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#Odwoluje_lot"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Oglasza_alarm"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Potwierdza_odbiór_wiadomosci"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Pozwala_ladowac"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Pozwala_startowac"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#Przydziela_numer_klienta"/>
@@ -80,19 +95,31 @@
         <ObjectProperty IRI="#Przygotowuje_samolot"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#Rozpoczyna_akcje_ratunkowa"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#Sprzedaje_bilet"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Wysyla_wiadomosci"/>
+        <ObjectProperty IRI="#Ustala_plan_lotow"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Zglasza_problemy"/>
+        <ObjectProperty IRI="#Uzywa_samolotu"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Zglasza_zakonczenie_prac"/>
+        <ObjectProperty IRI="#Wyswietla_odloty"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Zmienia_godzine"/>
+        <ObjectProperty IRI="#Wyswietla_przyloty"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Zglasza_awarie"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Alarm"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Awaria"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#Godzina_odlotu"/>
@@ -104,12 +131,6 @@
         <DataProperty IRI="#ID_samolotu"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#Informacja_o_problemach"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#Informacja_o_przesiadce"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="#Liczba_czlonkow_zalogi"/>
     </Declaration>
     <Declaration>
@@ -119,7 +140,7 @@
         <DataProperty IRI="#Ma_nazwisko"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#Ma_rozklad_lotow"/>
+        <DataProperty IRI="#Ma_numer_lotu"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#Nazwisko_pracownika"/>
@@ -131,34 +152,70 @@
         <DataProperty IRI="#Numer_lotu"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#Poziom_paliwa"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#Problem"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#Stan_samolotu"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#Stan_techniczny"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#Stan_zapasow"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="#Standardowa"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#Wiadomosc"/>
+        <DataProperty IRI="#Zmiany_lotow"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#Zmiany_lotow"/>
+        <NamedIndividual IRI="#Berlin_Warszawa"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#British_airways"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Do_remontu"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Gdansk_Warszawa"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Gotowy"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Londyn_Warszawa"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Lot"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Nie_gotowy"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Odlot_Berlin_12:30"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Odlot_Gdansk_16:00"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Odlot_Londyn_18:00"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Przylot_Berlin_9:00"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Przylot_Gdansk_11:00"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Przylot_Londyn_15:00"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Rayanair"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Warszawa_Berlin"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Warszawa_Gdansk"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Warszawa_Londyn"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Wizzair"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="#Awionetka"/>
@@ -197,34 +254,48 @@
         <Class IRI="#Kontrola_lotow"/>
         <ObjectSomeValuesFrom>
             <ObjectProperty IRI="#Odwoluje_lot"/>
-            <Class IRI="#Personel_przewoznika"/>
+            <Class IRI="#Lot"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Kontrola_lotow"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Odwoluje_lot"/>
+            <ObjectProperty IRI="#Oglasza_alarm"/>
+            <Class IRI="#Obsluga_techniczna"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Kontrola_lotow"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Pozwala_ladowac"/>
             <Class IRI="#Samolot"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Kontrola_lotow"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Wysyla_wiadomosci"/>
+            <ObjectProperty IRI="#Pozwala_startowac"/>
             <Class IRI="#Samolot"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Kontrola_lotow"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Zmienia_godzine"/>
+            <ObjectProperty IRI="#Ustala_plan_lotow"/>
+            <Class IRI="#Rozklad_lotow"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Lot"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Uzywa_samolotu"/>
             <Class IRI="#Samolot"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Kontrola_lotow"/>
+        <Class IRI="#Lot"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="#Ma_rozklad_lotow"/>
+            <DataProperty IRI="#Ma_numer_lotu"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </SubClassOf>
@@ -238,28 +309,14 @@
     <SubClassOf>
         <Class IRI="#Obsluga_techniczna"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Zglasza_problemy"/>
-            <Class IRI="#Kontrola_lotow"/>
+            <ObjectProperty IRI="#Rozpoczyna_akcje_ratunkowa"/>
+            <Class IRI="#Samolot"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Obsluga_techniczna"/>
+        <Class IRI="#Pasazer"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Zglasza_problemy"/>
-            <Class IRI="#Personel_przewoznika"/>
-        </ObjectSomeValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Obsluga_techniczna"/>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Zglasza_zakonczenie_prac"/>
-            <Class IRI="#Kontrola_lotow"/>
-        </ObjectSomeValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Obsluga_techniczna"/>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Zglasza_zakonczenie_prac"/>
+            <ObjectProperty IRI="#Kupuje_bilet"/>
             <Class IRI="#Personel_przewoznika"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
@@ -267,7 +324,7 @@
         <Class IRI="#Pasazer"/>
         <ObjectSomeValuesFrom>
             <ObjectProperty IRI="#Ma_bilet"/>
-            <Class IRI="#Samolot"/>
+            <Class IRI="#Lot"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
@@ -280,14 +337,7 @@
     <SubClassOf>
         <Class IRI="#Personel_przewoznika"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Obsluguje_pasazer"/>
-            <Class IRI="#Pasazer"/>
-        </ObjectSomeValuesFrom>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Personel_przewoznika"/>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Przydziela_numer_klienta"/>
+            <ObjectProperty IRI="#Odprawia_pasazer"/>
             <Class IRI="#Pasazer"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
@@ -299,9 +349,51 @@
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Personel_przewoznika"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Sprzedaje_bilet"/>
+            <Class IRI="#Pasazer"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Rozklad_lotow"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Wyswietla_odloty"/>
+            <Class IRI="#Kontrola_lotow"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Rozklad_lotow"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Wyswietla_przyloty"/>
+            <Class IRI="#Kontrola_lotow"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Samolot"/>
         <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="#Komunikuje_sie_z"/>
+            <ObjectProperty IRI="#Informuje_o_transferze_pasazera"/>
+            <Class IRI="#Kontrola_lotow"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Samolot"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Odbywa_rejs"/>
+            <Class IRI="#Lot"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Samolot"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Potwierdza_odbiór_wiadomosci"/>
+            <Class IRI="#Kontrola_lotow"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Samolot"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Zglasza_awarie"/>
             <Class IRI="#Kontrola_lotow"/>
         </ObjectSomeValuesFrom>
     </SubClassOf>
@@ -312,19 +404,40 @@
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Samolot"/>
-        <DataSomeValuesFrom>
-            <DataProperty IRI="#Stan_samolotu"/>
-            <Datatype abbreviatedIRI="xsd:string"/>
-        </DataSomeValuesFrom>
-    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Berlin_Warszawa"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#British_airways"/>
+    </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Personel_przewoznika"/>
-        <NamedIndividual IRI="#Lot"/>
+        <NamedIndividual IRI="#British_airways"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Samolot"/>
+        <NamedIndividual IRI="#Do_remontu"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Gdansk_Warszawa"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Samolot"/>
+        <NamedIndividual IRI="#Gotowy"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Londyn_Warszawa"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Lot"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Personel_przewoznika"/>
         <NamedIndividual IRI="#Lot"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -335,40 +448,108 @@
         <Class IRI="#Obsluga_techniczna"/>
         <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ClassAssertion>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#Informuje_o_zmianach"/>
-        <ObjectProperty IRI="#Obsluguje_pasazer"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#Odprawia_pasazera"/>
-        <ObjectProperty IRI="#Obsluguje_pasazer"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#Sprzedaje_bilet"/>
-        <ObjectProperty IRI="#Obsluguje_pasazer"/>
-    </SubObjectPropertyOf>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#Informuje_o_zmianach"/>
+    <ClassAssertion>
+        <Class IRI="#Samolot"/>
+        <NamedIndividual IRI="#Nie_gotowy"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Rozklad_lotow"/>
+        <NamedIndividual IRI="#Odlot_Berlin_12:30"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Rozklad_lotow"/>
+        <NamedIndividual IRI="#Odlot_Gdansk_16:00"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Rozklad_lotow"/>
+        <NamedIndividual IRI="#Odlot_Londyn_18:00"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Rozklad_lotow"/>
+        <NamedIndividual IRI="#Przylot_Berlin_9:00"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Rozklad_lotow"/>
+        <NamedIndividual IRI="#Przylot_Gdansk_11:00"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Rozklad_lotow"/>
+        <NamedIndividual IRI="#Przylot_Londyn_15:00"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Rayanair"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#Personel_przewoznika"/>
+        <NamedIndividual IRI="#Rayanair"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Warszawa_Berlin"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Warszawa_Gdansk"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Warszawa_Londyn"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Wizzair"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Personel_przewoznika"/>
+        <NamedIndividual IRI="#Wizzair"/>
+    </ClassAssertion>
+    <EquivalentObjectProperties>
+        <ObjectProperty IRI="#Kupuje_bilet"/>
+        <ObjectProperty IRI="#Sprzedaje_bilet"/>
+    </EquivalentObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Odbywa_rejs"/>
+        <ObjectProperty IRI="#Uzywa_samolotu"/>
+    </InverseObjectProperties>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Informuje_o_transferze_pasazera"/>
+        <Class IRI="#Samolot"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#Komunikuje_sie_z"/>
-        <Class IRI="#Samolot"/>
+        <ObjectProperty IRI="#Kupuje_bilet"/>
+        <Class IRI="#Pasazer"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#Ma_bilet"/>
         <Class IRI="#Pasazer"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#Obsluguje_pasazer"/>
-        <Class IRI="#Personel_przewoznika"/>
+        <ObjectProperty IRI="#Odbywa_rejs"/>
+        <Class IRI="#Samolot"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#Odprawia_pasazera"/>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
         <Class IRI="#Personel_przewoznika"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#Odwoluje_lot"/>
+        <Class IRI="#Kontrola_lotow"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Oglasza_alarm"/>
+        <Class IRI="#Kontrola_lotow"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Potwierdza_odbiór_wiadomosci"/>
+        <Class IRI="#Samolot"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Pozwala_ladowac"/>
+        <Class IRI="#Kontrola_lotow"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Pozwala_startowac"/>
         <Class IRI="#Kontrola_lotow"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
@@ -384,65 +565,70 @@
         <Class IRI="#Obsluga_techniczna"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#Sprzedaje_bilet"/>
-        <Class IRI="#Personel_przewoznika"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#Zglasza_problemy"/>
-        <Class IRI="#Samolot"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#Zglasza_zakonczenie_prac"/>
+        <ObjectProperty IRI="#Rozpoczyna_akcje_ratunkowa"/>
         <Class IRI="#Obsluga_techniczna"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#Zmienia_godzine"/>
+        <ObjectProperty IRI="#Sprzedaje_bilet"/>
+        <Class IRI="#Obsluga_techniczna"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Ustala_plan_lotow"/>
         <Class IRI="#Kontrola_lotow"/>
     </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Uzywa_samolotu"/>
+        <Class IRI="#Lot"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Wyswietla_odloty"/>
+        <Class IRI="#Rozklad_lotow"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Wyswietla_przyloty"/>
+        <Class IRI="#Rozklad_lotow"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Zglasza_awarie"/>
+        <Class IRI="#Samolot"/>
+    </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#Informuje_o_zmianach"/>
+        <ObjectProperty IRI="#Informuje_o_transferze_pasazera"/>
         <DataSomeValuesFrom>
             <DataProperty IRI="#Numer_klienta"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#Informuje_o_zmianach"/>
-        <DataSomeValuesFrom>
-            <DataProperty IRI="#Zmiany_lotow"/>
-            <Datatype abbreviatedIRI="xsd:string"/>
-        </DataSomeValuesFrom>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#Komunikuje_sie_z"/>
-        <DataSomeValuesFrom>
-            <DataProperty IRI="#Wiadomosc"/>
-            <Datatype abbreviatedIRI="xsd:string"/>
-        </DataSomeValuesFrom>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#Ma_bilet"/>
+        <ObjectProperty IRI="#Informuje_o_transferze_pasazera"/>
         <DataSomeValuesFrom>
             <DataProperty IRI="#Numer_lotu"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#Obsluguje_pasazer"/>
+        <ObjectProperty IRI="#Kupuje_bilet"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Numer_lotu"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Ma_bilet"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Ma_numer_lotu"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
         <DataSomeValuesFrom>
             <DataProperty IRI="#Numer_klienta"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#Odprawia_pasazera"/>
-        <DataSomeValuesFrom>
-            <DataProperty IRI="#Numer_klienta"/>
-            <Datatype abbreviatedIRI="xsd:string"/>
-        </DataSomeValuesFrom>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#Odprawia_pasazera"/>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
         <DataSomeValuesFrom>
             <DataProperty IRI="#Numer_lotu"/>
             <Datatype abbreviatedIRI="xsd:string"/>
@@ -452,6 +638,34 @@
         <ObjectProperty IRI="#Odwoluje_lot"/>
         <DataSomeValuesFrom>
             <DataProperty IRI="#Numer_lotu"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Oglasza_alarm"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Alarm"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Potwierdza_odbiór_wiadomosci"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Standardowa"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Pozwala_ladowac"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#ID_samolotu"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Pozwala_startowac"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#ID_samolotu"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
@@ -484,90 +698,73 @@
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#Sprzedaje_bilet"/>
+        <ObjectProperty IRI="#Rozpoczyna_akcje_ratunkowa"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="#Ma_ilosc_miejsc"/>
-            <Datatype abbreviatedIRI="xsd:integer"/>
-        </DataSomeValuesFrom>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#Sprzedaje_bilet"/>
-        <DataSomeValuesFrom>
-            <DataProperty IRI="#Numer_klienta"/>
+            <DataProperty IRI="#Alarm"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#Sprzedaje_bilet"/>
+        <ObjectProperty IRI="#Ustala_plan_lotow"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="#Numer_lotu"/>
+            <DataProperty IRI="#Godzina_odlotu"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#Zglasza_problemy"/>
+        <ObjectProperty IRI="#Ustala_plan_lotow"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="#Problem"/>
+            <DataProperty IRI="#Godzina_przylotu"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#Zglasza_zakonczenie_prac"/>
+        <ObjectProperty IRI="#Uzywa_samolotu"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="#Stan_samolotu"/>
+            <DataProperty IRI="#ID_samolotu"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#Zmienia_godzine"/>
+        <ObjectProperty IRI="#Wyswietla_odloty"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="#Ma_rozklad_lotow"/>
+            <DataProperty IRI="#Godzina_odlotu"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
-    <SubDataPropertyOf>
-        <DataProperty IRI="#Godzina_odlotu"/>
-        <DataProperty IRI="#Ma_rozklad_lotow"/>
-    </SubDataPropertyOf>
-    <SubDataPropertyOf>
-        <DataProperty IRI="#Godzina_przylotu"/>
-        <DataProperty IRI="#Ma_rozklad_lotow"/>
-    </SubDataPropertyOf>
-    <SubDataPropertyOf>
-        <DataProperty IRI="#Informacja_o_problemach"/>
-        <DataProperty IRI="#Wiadomosc"/>
-    </SubDataPropertyOf>
-    <SubDataPropertyOf>
-        <DataProperty IRI="#Informacja_o_przesiadce"/>
-        <DataProperty IRI="#Wiadomosc"/>
-    </SubDataPropertyOf>
-    <SubDataPropertyOf>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Wyswietla_przyloty"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Godzina_przylotu"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Zglasza_awarie"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Awaria"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <EquivalentDataProperties>
+        <DataProperty IRI="#Ma_numer_lotu"/>
         <DataProperty IRI="#Numer_lotu"/>
-        <DataProperty IRI="#Ma_rozklad_lotow"/>
-    </SubDataPropertyOf>
-    <SubDataPropertyOf>
-        <DataProperty IRI="#Poziom_paliwa"/>
-        <DataProperty IRI="#Stan_samolotu"/>
-    </SubDataPropertyOf>
-    <SubDataPropertyOf>
-        <DataProperty IRI="#Stan_techniczny"/>
-        <DataProperty IRI="#Stan_samolotu"/>
-    </SubDataPropertyOf>
-    <SubDataPropertyOf>
-        <DataProperty IRI="#Stan_zapasow"/>
-        <DataProperty IRI="#Stan_samolotu"/>
-    </SubDataPropertyOf>
-    <SubDataPropertyOf>
-        <DataProperty IRI="#Standardowa"/>
-        <DataProperty IRI="#Wiadomosc"/>
-    </SubDataPropertyOf>
+    </EquivalentDataProperties>
     <DataPropertyDomain>
-        <DataProperty IRI="#Godzina_odlotu"/>
+        <DataProperty IRI="#Alarm"/>
         <Class IRI="#Kontrola_lotow"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
+        <DataProperty IRI="#Awaria"/>
+        <Class IRI="#Samolot"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Godzina_odlotu"/>
+        <Class IRI="#Rozklad_lotow"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
         <DataProperty IRI="#Godzina_przylotu"/>
-        <Class IRI="#Kontrola_lotow"/>
+        <Class IRI="#Rozklad_lotow"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#ID_samolotu"/>
@@ -586,59 +783,47 @@
         <Class IRI="#Pasazer"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#Ma_rozklad_lotow"/>
-        <Class IRI="#Kontrola_lotow"/>
+        <DataProperty IRI="#Ma_numer_lotu"/>
+        <Class IRI="#Lot"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#Nazwisko_pracownika"/>
         <Class IRI="#Personel_przewoznika"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
+        <DataProperty IRI="#Numer_klienta"/>
+        <Class IRI="#Pasazer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
         <DataProperty IRI="#Numer_lotu"/>
-        <Class IRI="#Kontrola_lotow"/>
+        <Class IRI="#Lot"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#Poziom_paliwa"/>
+        <DataProperty IRI="#Standardowa"/>
         <Class IRI="#Samolot"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#Problem"/>
-        <Class IRI="#Obsluga_techniczna"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#Stan_samolotu"/>
-        <Class IRI="#Samolot"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#Stan_techniczny"/>
-        <Class IRI="#Samolot"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#Stan_zapasow"/>
-        <Class IRI="#Samolot"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#Wiadomosc"/>
+        <DataProperty IRI="#Zmiany_lotow"/>
         <Class IRI="#Kontrola_lotow"/>
     </DataPropertyDomain>
     <DataPropertyRange>
+        <DataProperty IRI="#Alarm"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Awaria"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
         <DataProperty IRI="#Godzina_odlotu"/>
-        <Datatype abbreviatedIRI="xsd:dateTime"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#Godzina_przylotu"/>
-        <Datatype abbreviatedIRI="xsd:dateTime"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#ID_samolotu"/>
-        <Datatype abbreviatedIRI="xsd:string"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#Informacja_o_problemach"/>
-        <Datatype abbreviatedIRI="xsd:string"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#Informacja_o_przesiadce"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
@@ -654,7 +839,7 @@
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#Ma_rozklad_lotow"/>
+        <DataProperty IRI="#Ma_numer_lotu"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
@@ -662,27 +847,11 @@
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
+        <DataProperty IRI="#Numer_klienta"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
         <DataProperty IRI="#Numer_lotu"/>
-        <Datatype abbreviatedIRI="xsd:string"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#Poziom_paliwa"/>
-        <Datatype abbreviatedIRI="xsd:string"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#Problem"/>
-        <Datatype abbreviatedIRI="xsd:string"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#Stan_samolotu"/>
-        <Datatype abbreviatedIRI="xsd:string"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#Stan_techniczny"/>
-        <Datatype abbreviatedIRI="xsd:string"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#Stan_zapasow"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
@@ -690,7 +859,7 @@
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#Wiadomosc"/>
+        <DataProperty IRI="#Zmiany_lotow"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
 </Ontology>
