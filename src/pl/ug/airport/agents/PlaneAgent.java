@@ -9,7 +9,7 @@ import jade.core.behaviours.Behaviour;
 /*
  * Samolot
  */
-public class PlaneAgent extends Agent {
+public class PlaneAgent extends AirportBaseAgent {
 	
 	private boolean passangersOnBoard = true;
 	private boolean flightReady = false;

@@ -3,7 +3,7 @@ package pl.ug.airport.agents;
 import pl.ug.airport.behaviours.PassangerBehaviour;
 import jade.core.Agent;
 
-public class PassangerAgent extends Agent{
+public class PassangerAgent extends AirportBaseAgent {
 	
 	@Override
 	protected void setup() {

@@ -7,7 +7,7 @@ import jade.core.behaviours.Behaviour;
 /*
  * Przyloty/Odloty
  */
-public class FlightControlAgent extends Agent{
+public class FlightControlAgent extends AirportBaseAgent {
 	
 	private int availablePlanes = 0;
 	
