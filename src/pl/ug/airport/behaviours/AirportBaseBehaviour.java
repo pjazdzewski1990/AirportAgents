@@ -32,6 +32,8 @@ public abstract class AirportBaseBehaviour extends Behaviour {
 	protected OWLOntologyManager manager;
 	protected OWLDataFactory factory;
 	
+	protected String baseURI = "http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko";
+	
 	public AirportBaseBehaviour() {
 		manager = OWLManager.createOWLOntologyManager();
 		factory = manager.getOWLDataFactory();
@@ -59,15 +61,18 @@ public abstract class AirportBaseBehaviour extends Behaviour {
 		return factory.getOWLClass(IRI.create("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#" + name));
 	}
 	
+	protected OWLNamedIndividual getIndividualByUri(String uri){
+		return factory.getOWLNamedIndividual(IRI.create(uri));
+	}
+	
 	protected OWLNamedIndividual getIndividualByName(String name){
-		return factory.getOWLNamedIndividual(IRI.create("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#" + name));
+		return getIndividualByUri(baseURI + "#" + name);
 	}
 	
 	protected OWLDataProperty getDataPropertyByName(String name){
 		return factory.getOWLDataProperty(IRI.create("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#" + name));
 	}
 	
-	//TODO: na razie tylko string
 	protected Set<OWLNamedIndividual> filterIndividualsByDataPropertValue(Set<OWLNamedIndividual> individuals, OWLDataProperty property, String value) { 
 		Set<OWLNamedIndividual> filtered = new HashSet<OWLNamedIndividual>();
 		for (OWLNamedIndividual ind: individuals) {
@@ -80,5 +85,13 @@ public abstract class AirportBaseBehaviour extends Behaviour {
 			}
 		}
 		return filtered;
+	}
+	
+	protected Set<String> individualsToUriStrings(Set<OWLNamedIndividual> individuals) {
+		Set<String> uris = new HashSet<>();
+		for(OWLNamedIndividual i : individuals) {
+			uris.add(i.toStringID());
+		}
+		return uris;
 	}
 }

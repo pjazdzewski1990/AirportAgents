@@ -32,11 +32,12 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 	@Override
 	public void action() {
 		ACLMessage msg = myAgent.receive();
+//		askForFlight();
 		if (msg != null) {
 			try{
-				askForFlight();
 //				StringMessages messageStr = StringMessages.parseString(msg.getContent());
 //				messageHandler(messageStr);
+				presentFlightData(msg.getContent().split(";"));
 			} catch(IllegalArgumentException ex){}	
 		}
 		else {
@@ -44,6 +45,15 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 		} 
 	}
 	
+	private void presentFlightData(String[] availableFlightsUris) {
+		System.out.println("Possible flights: ");
+		int number = 0; 
+		for(String uri : availableFlightsUris){
+			OWLNamedIndividual individual = getIndividualByUri(uri);
+			System.out.println(++number + ": " + individual);
+		}
+	}
+
 	private void messageHandler(StringMessages messageStr) {
 		switch(messageStr) {
 		case INFORM_ABOUT_CHANGES:
@@ -61,14 +71,6 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 		}
 	}
 	
-	private void send(String address, StringMessages msgContent) {
-		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-		msg.addReceiver(new AID(address, AID.ISLOCALNAME));
-		msg.setLanguage(AgentAddresses.getLang());
-		msg.setContent(msgContent.toString());
-		agent.send(msg);
-	}
-
 	@Override
 	public boolean done() {
 		// TODO Auto-generated method stub
@@ -77,9 +79,6 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 
 
 	public void askForFlight() {
-		// WUT?
-		//ontologyManager.getQueryManager().createCustomQueryClass(countryQueryOntology, "countryQuery", countryClass);
-		
 		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_IF);
 		msg.addReceiver(new AID(AgentAddresses.getTimetableAddress(), AID.ISLOCALNAME));
 		msg.setLanguage(AgentAddresses.getLang());

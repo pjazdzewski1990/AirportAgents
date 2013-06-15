@@ -1,9 +1,11 @@
 package pl.ug.airport.behaviours;
 
-import java.util.ArrayList;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -11,11 +13,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import jade.core.Agent;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.UnreadableException;
+
 import pl.ug.airport.helpers.AirportLogger;
 
 public class TimetableBehaviour extends AirportBaseBehaviour {
@@ -36,7 +35,6 @@ public class TimetableBehaviour extends AirportBaseBehaviour {
 				Set<OWLNamedIndividual> flightIndividuals = reasoner.getInstances(flight, true).getFlattened();
 				
 				String request = msg.getContent();
-				System.out.println(request);
 				Map<OWLDataProperty, String> expected = parseRequest(request);
 				
 				Set<OWLNamedIndividual> correctFlights = flightIndividuals;
@@ -44,7 +42,6 @@ public class TimetableBehaviour extends AirportBaseBehaviour {
 				Iterator<Entry<OWLDataProperty, String>> it = expected.entrySet().iterator();
 			    while (it.hasNext()) {
 			        Entry<OWLDataProperty, String> pair = it.next();
-			        System.out.println(pair.getKey() + " = " + pair.getValue());
 			        
 			        OWLDataProperty property = pair.getKey();
 			        String value = pair.getValue();
@@ -53,6 +50,10 @@ public class TimetableBehaviour extends AirportBaseBehaviour {
 			    }
 				
 				System.out.println("Do odeslania " + correctFlights);
+				Set<String> uris = individualsToUriStrings(correctFlights);
+				
+				replyWithflightInfo(msg.createReply(), uris);
+				
 			} catch(IllegalArgumentException ex) {
 				AirportLogger.log(TAG + " error " + ex);
 			}	
@@ -60,6 +61,18 @@ public class TimetableBehaviour extends AirportBaseBehaviour {
 		else {
 			block();
 		} 
+	}
+
+	private void replyWithflightInfo(ACLMessage msg, Set<String> uris) {
+		StringBuilder sb = new StringBuilder();
+		for(String uri : uris){
+			sb.append(uri);
+			sb.append(";");
+		}
+		sb.deleteCharAt(sb.length()-1);
+		
+		msg.setContent(sb.toString());
+		agent.send(msg);
 	}
 
 	private Map<OWLDataProperty, String> parseRequest(String request) {
