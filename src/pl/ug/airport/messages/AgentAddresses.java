@@ -10,6 +10,7 @@ public class AgentAddresses {
 	private static String techServiceAgentAddress = "service_tech";
 	private static String flightAgentAddress = "control_flight";
 	private static String staffAgentAddress = "control_staff";
+	private static String timetableAddress = "timetable";
 	
 	private static String lang = "Polish"; 
 	
@@ -36,5 +37,8 @@ public class AgentAddresses {
 	}
 	public static String getStaffAgentAddress() {
 		return staffAgentAddress;
+	}
+	public static String getTimetableAddress() {
+		return timetableAddress;
 	}
 }

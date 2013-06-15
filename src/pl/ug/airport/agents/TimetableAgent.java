@@ -1,13 +1,14 @@
 package pl.ug.airport.agents;
 
 import pl.ug.airport.behaviours.PassangerBehaviour;
+import pl.ug.airport.behaviours.TimetableBehaviour;
 import jade.core.Agent;
 
-public class PassangerAgent extends Agent {
-	
+public class TimetableAgent extends Agent {
+
 	@Override
 	protected void setup() {
-		addBehaviour(new PassangerBehaviour(this));
+		addBehaviour(new TimetableBehaviour(this));
 	}
-
+	
 }

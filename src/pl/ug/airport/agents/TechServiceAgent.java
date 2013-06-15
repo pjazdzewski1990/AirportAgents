@@ -7,7 +7,7 @@ import jade.core.behaviours.Behaviour;
 /*
  * Obs³uga techniczna
  */
-public class TechServiceAgent extends AirportBaseAgent {
+public class TechServiceAgent extends Agent {
 	
 	@Override
 	protected void setup() {

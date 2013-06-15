@@ -6,7 +6,7 @@ import jade.core.Agent;
 /*
  * Przydzia³ za³ogi
  */
-public class StaffAssignmentAgent extends AirportBaseAgent {
+public class StaffAssignmentAgent extends Agent {
 	StaffAssignmentBehaviour mainBhv;
 	
 	@Override

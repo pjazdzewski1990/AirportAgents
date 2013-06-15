@@ -134,6 +134,9 @@
         <DataProperty IRI="#Liczba_czlonkow_zalogi"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#Lot_do"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="#Ma_ilosc_miejsc"/>
     </Declaration>
     <Declaration>
@@ -204,6 +207,15 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Rayanair"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Rejs_1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Rejs_2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Rejs_3"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Warszawa_Berlin"/>
@@ -486,6 +498,18 @@
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Rejs_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Rejs_2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#Rejs_3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
         <NamedIndividual IRI="#Warszawa_Berlin"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -504,6 +528,21 @@
         <Class IRI="#Personel_przewoznika"/>
         <NamedIndividual IRI="#Wizzair"/>
     </ClassAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Lot_do"/>
+        <NamedIndividual IRI="#Rejs_1"/>
+        <Literal datatypeIRI="&xsd;string">Paris</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Lot_do"/>
+        <NamedIndividual IRI="#Rejs_2"/>
+        <Literal datatypeIRI="&xsd;string">Berlin</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Lot_do"/>
+        <NamedIndividual IRI="#Rejs_3"/>
+        <Literal datatypeIRI="&xsd;string">Warszawa</Literal>
+    </DataPropertyAssertion>
     <EquivalentObjectProperties>
         <ObjectProperty IRI="#Kupuje_bilet"/>
         <ObjectProperty IRI="#Sprzedaje_bilet"/>
@@ -775,6 +814,10 @@
         <Class IRI="#Personel_przewoznika"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
+        <DataProperty IRI="#Lot_do"/>
+        <Class IRI="#Lot"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
         <DataProperty IRI="#Ma_ilosc_miejsc"/>
         <Class IRI="#Samolot"/>
     </DataPropertyDomain>
@@ -829,6 +872,10 @@
     <DataPropertyRange>
         <DataProperty IRI="#Liczba_czlonkow_zalogi"/>
         <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Lot_do"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#Ma_ilosc_miejsc"/>

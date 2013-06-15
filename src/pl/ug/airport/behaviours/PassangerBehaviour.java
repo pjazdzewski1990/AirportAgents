@@ -1,5 +1,17 @@
 package pl.ug.airport.behaviours;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+
 import pl.ug.airport.helpers.AirportLogger;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
@@ -8,7 +20,7 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 
-public class PassangerBehaviour extends Behaviour {
+public class PassangerBehaviour extends AirportBaseBehaviour {
 
 	private Agent agent;
 	private String TAG = "PassangerAgent: ";
@@ -22,8 +34,9 @@ public class PassangerBehaviour extends Behaviour {
 		ACLMessage msg = myAgent.receive();
 		if (msg != null) {
 			try{
-				StringMessages messageStr = StringMessages.parseString(msg.getContent());
-				messageHandler(messageStr);
+				askForFlight();
+//				StringMessages messageStr = StringMessages.parseString(msg.getContent());
+//				messageHandler(messageStr);
 			} catch(IllegalArgumentException ex){}	
 		}
 		else {
@@ -45,10 +58,7 @@ public class PassangerBehaviour extends Behaviour {
 		default:
 			AirportLogger.log(TAG + "Unknown message received " + messageStr);
 			break;
-
-	
 		}
-		
 	}
 	
 	private void send(String address, StringMessages msgContent) {
@@ -64,12 +74,18 @@ public class PassangerBehaviour extends Behaviour {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	//sending functions
-	private void reserveFlight() {
-		StringMessages rsv = StringMessages.RESERVATION;
-		send(AgentAddresses.getPassangerAgentAddress(0), rsv);
+
+
+	public void askForFlight() {
+		// WUT?
+		//ontologyManager.getQueryManager().createCustomQueryClass(countryQueryOntology, "countryQuery", countryClass);
 		
+		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_IF);
+		msg.addReceiver(new AID(AgentAddresses.getTimetableAddress(), AID.ISLOCALNAME));
+		msg.setLanguage(AgentAddresses.getLang());
+		msg.setOntology("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko");
+		msg.setContent("Lot_do=Paris");
+		agent.send(msg);
 	}
 
 }
