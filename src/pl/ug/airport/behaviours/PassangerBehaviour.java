@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 import pl.ug.airport.helpers.AirportLogger;
+import pl.ug.airport.helpers.HelperMethods;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
 import jade.core.AID;
@@ -32,12 +33,20 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 	@Override
 	public void action() {
 		ACLMessage msg = myAgent.receive();
-//		askForFlight();
+		
+		askForFlight();
 		if (msg != null) {
 			try{
-//				StringMessages messageStr = StringMessages.parseString(msg.getContent());
-//				messageHandler(messageStr);
-				presentFlightData(msg.getContent().split(";"));
+				//StringMessages messageStr = StringMessages.parseString(msg.getContent());
+				
+				messageHandler(msg);
+
+
+				
+				
+				
+				
+				
 			} catch(IllegalArgumentException ex){}	
 		}
 		else {
@@ -54,8 +63,12 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 		}
 	}
 
-	private void messageHandler(StringMessages messageStr) {
-		switch(messageStr) {
+	private void messageHandler(ACLMessage msg) {
+		switch(HelperMethods.getConvTag(msg.getConversationId())) {
+		case FLIGHT_INFO:
+			presentFlightData(msg.getContent().split(";"));
+			
+			break;
 		case INFORM_ABOUT_CHANGES:
 			AirportLogger.log(TAG + " Updating flight information");
 			//send(AgentAddresses.getPassangerAgentAddress(1), StringMessages.RESPONSE_OK);
@@ -66,7 +79,7 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 			break;
 			
 		default:
-			AirportLogger.log(TAG + "Unknown message received " + messageStr);
+			AirportLogger.log(TAG + "Unknown message received " + msg);
 			break;
 		}
 	}
@@ -84,6 +97,16 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 		msg.setLanguage(AgentAddresses.getLang());
 		msg.setOntology("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko");
 		msg.setContent("Lot_do=Paris");
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.FLIGHT_INFO));
+		agent.send(msg);
+	}
+	
+	public void reserveFlight(OWLNamedIndividual reservation) {
+		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_IF);
+		msg.addReceiver(new AID(AgentAddresses.getTimetableAddress(), AID.ISLOCALNAME));
+		msg.setLanguage(AgentAddresses.getLang());
+		msg.setOntology("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko");
+		msg.setContent(reservation.toString());
 		agent.send(msg);
 	}
 
