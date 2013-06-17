@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 
 import pl.ug.airport.helpers.AirportLogger;
+import pl.ug.airport.helpers.HelperMethods;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
 import jade.core.AID;
@@ -38,19 +39,19 @@ public class TechServiceBehaviour extends AirportBaseBehaviour {
 			String accidentTypeUri = content[1];
 			serviceAccident(planeUri, accidentTypeUri);
 			
-			sendServiceReport();
+			sendServiceReport(planeUri);
 		}
 		if(content.length == 1){
 			String planeUri = content[0];
 			routineCheck(planeUri);
 			
-			sendServiceReport();
+			sendServiceReport(planeUri);
 		}
 	}
 
-	private void sendServiceReport() {
-		this.send(AgentAddresses.getFlightAgentAddress(), StringMessages.PLANE_READY);
-		this.send(AgentAddresses.getPlaneAgentAddress(0), StringMessages.PLANE_READY);
+	private void sendServiceReport(String planeUri) {
+		this.sendToControl(AgentAddresses.getFlightAgentAddress(), planeUri);
+		this.sendToControl(AgentAddresses.getPlaneAgentAddress(0), planeUri);
 	}
 
 	private void routineCheck(String planeUri) {
@@ -58,14 +59,15 @@ public class TechServiceBehaviour extends AirportBaseBehaviour {
 	}
 
 	private void serviceAccident(String planeUri, String accidentTypeUri) {
-		
+		AirportLogger.log(TAG + " Servicing " + planeUri.substring(planeUri.lastIndexOf("#") + 1) + " after accident");
 	}
 
-	private void send(String address, StringMessages msgContent) {
+	private void sendToControl(String address, String msgContent) {
 		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 		msg.addReceiver(new AID(address, AID.ISLOCALNAME));
 		msg.setLanguage(AgentAddresses.getLang());
-		msg.setContent(msgContent.toString());
+		msg.setContent(msgContent);
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.PLANE_READY));
 		agent.send(msg);
 	}
 

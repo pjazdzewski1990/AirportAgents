@@ -72,7 +72,6 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 			String[] failureData = msg.getContent().split(";");
 			getAirportSupport(failureData[0], failureData[1], failureData[2]);
 			break;
-		
 		case CLOSE_TO_AIRPORT:
 			AirportLogger.log(TAG + "Plane is closing in. Prepare airfield");
 			break;
@@ -108,13 +107,18 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 			agent.send(reply);
 			break;
 		case PLANE_READY:
-			AirportLogger.log(TAG + "Plane is ready for scheduling");
+			addPlaneToReady(msg.getContent());
 			break;
 		default:
 			//AirportLogger.log(TAG + "Unknown message received " + message);
 		}
 	}
 	
+	private void addPlaneToReady(String plane) {
+		AirportLogger.log(TAG + "Plane " + plane.substring(plane.lastIndexOf("#") + 1) + " is ready for scheduling");
+		planesAtAirport.add(plane);
+	}
+
 	private void getAirportSupport(String flightURI, String planeURI, String failureURI) {
 		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 		msg.addReceiver(new AID(AgentAddresses.getTechServiceAgentAddress(),

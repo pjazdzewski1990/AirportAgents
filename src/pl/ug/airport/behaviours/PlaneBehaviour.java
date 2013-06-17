@@ -167,6 +167,7 @@ public class PlaneBehaviour extends AirportBaseBehaviour {
 		msg.addReceiver(new AID(address, AID.ISLOCALNAME));
 		msg.setLanguage(AgentAddresses.getLang());
 		msg.setContent(msgContent);
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.REQUEST_INSPECTION));
 		agent.send(msg);
 	}
 	
