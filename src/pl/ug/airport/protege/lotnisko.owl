@@ -188,10 +188,16 @@
         <NamedIndividual IRI="#Do_remontu"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#GW1100"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#Gdansk_Warszawa"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Gotowy"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#LW1500"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Londyn_Warszawa"/>
@@ -237,6 +243,15 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Rejs_3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#WB1230"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#WG1600"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#WL1800"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#Warszawa_Berlin"/>
@@ -463,6 +478,10 @@
         <NamedIndividual IRI="#Awaria_podwozia"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Dream_liner"/>
+        <NamedIndividual IRI="#BW0900"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#Lot"/>
         <NamedIndividual IRI="#BW0900"/>
     </ClassAssertion>
@@ -483,12 +502,28 @@
         <NamedIndividual IRI="#Do_remontu"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Awionetka"/>
+        <NamedIndividual IRI="#GW1100"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#GW1100"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#Lot"/>
         <NamedIndividual IRI="#Gdansk_Warszawa"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Samolot"/>
         <NamedIndividual IRI="#Gotowy"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jumbo_jet"/>
+        <NamedIndividual IRI="#LW1500"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#LW1500"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Lot"/>
@@ -563,6 +598,30 @@
         <NamedIndividual IRI="#Rejs_3"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Dream_liner"/>
+        <NamedIndividual IRI="#WB1230"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#WB1230"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Awionetka"/>
+        <NamedIndividual IRI="#WG1600"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#WG1600"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Jumbo_jet"/>
+        <NamedIndividual IRI="#WL1800"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Lot"/>
+        <NamedIndividual IRI="#WL1800"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#Lot"/>
         <NamedIndividual IRI="#Warszawa_Berlin"/>
     </ClassAssertion>
@@ -592,24 +651,74 @@
         <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odbywa_rejs"/>
+        <NamedIndividual IRI="#BW0900"/>
+        <NamedIndividual IRI="#Berlin_Warszawa"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Potwierdza_odbiór_wiadomosci"/>
         <NamedIndividual IRI="#BW0900"/>
         <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#Odbywa_rejs"/>
-        <NamedIndividual IRI="#Berlin_Warszawa"/>
-        <NamedIndividual IRI="#Berlin_Warszawa"/>
+        <ObjectProperty IRI="#Komunikuje_sie"/>
+        <NamedIndividual IRI="#GW1100"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Odbywa_rejs"/>
-        <NamedIndividual IRI="#Gdansk_Warszawa"/>
+        <NamedIndividual IRI="#GW1100"/>
         <NamedIndividual IRI="#Gdansk_Warszawa"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Potwierdza_odbiór_wiadomosci"/>
+        <NamedIndividual IRI="#GW1100"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Komunikuje_sie"/>
+        <NamedIndividual IRI="#LW1500"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Odbywa_rejs"/>
+        <NamedIndividual IRI="#LW1500"/>
         <NamedIndividual IRI="#Londyn_Warszawa"/>
-        <NamedIndividual IRI="#Londyn_Warszawa"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Potwierdza_odbiór_wiadomosci"/>
+        <NamedIndividual IRI="#LW1500"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Pozwala_ladowac"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+        <NamedIndividual IRI="#LW1500"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Pozwala_ladowac"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+        <NamedIndividual IRI="#GW1100"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Pozwala_ladowac"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+        <NamedIndividual IRI="#BW0900"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Pozwala_startowac"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+        <NamedIndividual IRI="#WB1230"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Pozwala_startowac"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+        <NamedIndividual IRI="#WL1800"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Pozwala_startowac"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+        <NamedIndividual IRI="#WG1600"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Pozwala_startowac"/>
@@ -642,19 +751,19 @@
         <NamedIndividual IRI="#Londyn_Warszawa"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#Odbywa_rejs"/>
-        <NamedIndividual IRI="#Warszawa_Berlin"/>
-        <NamedIndividual IRI="#Warszawa_Berlin"/>
+        <ObjectProperty IRI="#Komunikuje_sie"/>
+        <NamedIndividual IRI="#WB1230"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Odbywa_rejs"/>
-        <NamedIndividual IRI="#Warszawa_Gdansk"/>
-        <NamedIndividual IRI="#Warszawa_Gdansk"/>
+        <NamedIndividual IRI="#WB1230"/>
+        <NamedIndividual IRI="#Warszawa_Berlin"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#Odbywa_rejs"/>
-        <NamedIndividual IRI="#Warszawa_Londyn"/>
-        <NamedIndividual IRI="#Warszawa_Londyn"/>
+        <ObjectProperty IRI="#Potwierdza_odbiór_wiadomosci"/>
+        <NamedIndividual IRI="#WB1230"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#Awaria"/>
@@ -683,13 +792,33 @@
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#Godzina_przylotu"/>
+        <NamedIndividual IRI="#GW1100"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">11:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Godzina_przylotu"/>
         <NamedIndividual IRI="#Gdansk_Warszawa"/>
         <Literal datatypeIRI="&rdf;PlainLiteral">11:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Numer_lotu"/>
+        <NamedIndividual IRI="#Gdansk_Warszawa"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">GW1100</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Godzina_przylotu"/>
+        <NamedIndividual IRI="#LW1500"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">15:00</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#Godzina_przylotu"/>
         <NamedIndividual IRI="#Londyn_Warszawa"/>
         <Literal datatypeIRI="&rdf;PlainLiteral">15:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Numer_lotu"/>
+        <NamedIndividual IRI="#Londyn_Warszawa"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">LW1500</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#Godzina_odlotu"/>
@@ -772,14 +901,29 @@
         <Literal datatypeIRI="&xsd;string">12:30</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#Numer_lotu"/>
+        <NamedIndividual IRI="#Warszawa_Berlin"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">WB1230</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#Godzina_odlotu"/>
         <NamedIndividual IRI="#Warszawa_Gdansk"/>
         <Literal datatypeIRI="&xsd;string">16:00</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#Numer_lotu"/>
+        <NamedIndividual IRI="#Warszawa_Gdansk"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">WG1600</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#Godzina_odlotu"/>
         <NamedIndividual IRI="#Warszawa_Londyn"/>
         <Literal datatypeIRI="&xsd;string">18:00</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#Numer_lotu"/>
+        <NamedIndividual IRI="#Warszawa_Londyn"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">WL1800</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#Awaria"/>
