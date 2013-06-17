@@ -23,7 +23,7 @@ public class PlaneBehaviour extends AirportBaseBehaviour {
 	
 	//TODO: hard coded
 	private String seflUri = "http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#Orzel";
-	
+	//http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#LW1500
 	public PlaneBehaviour(PlaneAgent _agent) {
 		agent = _agent;
 	}
@@ -36,6 +36,19 @@ public class PlaneBehaviour extends AirportBaseBehaviour {
 
 	private void requestConfigData() {
 		OWLNamedIndividual indv = getIndividualByUri(this.seflUri);
+		getIndyvidualAssertions(indv);
+		
+		reportToAirport();
+	}
+
+	private void reportToAirport() {
+		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_IF);
+		msg.addReceiver(new AID(AgentAddresses.getFlightAgentAddress(), AID.ISLOCALNAME));
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.REPORT_PRESENCE));
+		msg.setLanguage(AgentAddresses.getLang());
+		msg.setContent(this.getFlightURI() + ";" + this.seflUri);
+		msg.setOntology(Constants.ontoURL);
+		agent.send(msg);
 		
 	}
 

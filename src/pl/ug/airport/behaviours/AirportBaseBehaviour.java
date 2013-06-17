@@ -103,4 +103,22 @@ public abstract class AirportBaseBehaviour extends CyclicBehaviour {
 			Thread.sleep(milis);
 		} catch (InterruptedException e) { }
 	}
+	
+	protected Set<String> getIndyvidualAssertions(OWLNamedIndividual indywidual) {
+
+		        
+
+
+		   for (OWLDataProperty dataProperty: ontology.getDataPropertiesInSignature()) {
+		    System.out.println("   data property: " + dataProperty);
+		   
+		    Set<OWLLiteral> petValuesNodeSet = reasoner.getDataPropertyValues(indywidual, dataProperty);
+		    for (OWLLiteral value : petValuesNodeSet)
+		     System.out.println("     wartosc prop: " + value.getLiteral());
+		   }
+		   
+		return null;
+		  }
+		  
+	
 }
