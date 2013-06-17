@@ -1,18 +1,22 @@
 package pl.ug.airport.behaviours;
 
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+
 import pl.ug.airport.helpers.AirportLogger;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class TechServiceBehaviour extends CyclicBehaviour {
+public class TechServiceBehaviour extends AirportBaseBehaviour {
 
 	private Agent agent;
 
 	private String TAG = "TechServiceAgent: ";
+	
+	private OWLClass accidentClass = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#Sytuacja_alarmowa"));
 	
 	public TechServiceBehaviour(Agent _agent) {
 		agent = _agent;
@@ -20,31 +24,41 @@ public class TechServiceBehaviour extends CyclicBehaviour {
 	
 	@Override
 	public void action() {
-		ACLMessage rec = agent.receive();
-		if(rec != null){
-			try{
-				StringMessages message = StringMessages.parseString(rec.getContent());
-				handleAirportMessage(message);
-			} catch(IllegalArgumentException ex){}
+		ACLMessage msg = agent.receive();
+		if(msg != null){
+			handleAirportMessage(msg);
 		}else{
 			block();
 		}
 	}
-	
-	private void handleAirportMessage(StringMessages message) {
-		switch(message){
-			case FAILURE_INFO:
-				//wezwanie obs³ugi
-				
-				break;
-			case REQUEST_INSPECTION: 
-				AirportLogger.log(TAG + "Performed inspection");
-				this.send(AgentAddresses.getFlightAgentAddress(), StringMessages.PLANE_READY);
-				this.send(AgentAddresses.getPlaneAgentAddress(0), StringMessages.PLANE_READY);
-			break;
-			default:
-				AirportLogger.log(TAG + "Unknown message received " + message);
+	private void handleAirportMessage(ACLMessage message) {
+		String[] content = message.getContent().split(";");
+		if(content.length == 2){
+			String planeUri = content[0];
+			String accidentTypeUri = content[1];
+			serviceAccident(planeUri, accidentTypeUri);
+			
+			sendServiceReport();
 		}
+		if(content.length == 1){
+			String planeUri = content[0];
+			routineCheck(planeUri);
+			
+			sendServiceReport();
+		}
+	}
+
+	private void sendServiceReport() {
+		this.send(AgentAddresses.getFlightAgentAddress(), StringMessages.PLANE_READY);
+		this.send(AgentAddresses.getPlaneAgentAddress(0), StringMessages.PLANE_READY);
+	}
+
+	private void routineCheck(String planeUri) {
+		AirportLogger.log(TAG + " Routine check of plane " + planeUri.substring(planeUri.lastIndexOf("#") + 1));
+	}
+
+	private void serviceAccident(String planeUri, String accidentTypeUri) {
+		
 	}
 
 	private void send(String address, StringMessages msgContent) {

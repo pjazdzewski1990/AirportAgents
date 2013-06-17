@@ -93,10 +93,6 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 		case REQUEST_TAKEOFF:
 			AirportLogger.log(TAG + "Plane requested take off permission");
 			
-			String[] content = msg.getContent().split(";");
-			String planeUri = content[1];
-			planesAtAirport.remove(planeUri);
-			
 			if(new Random().nextBoolean()){
 				AirportLogger.log(TAG + "Plane left the airport. Bye");
 				
@@ -149,13 +145,15 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 		}
 	}
 	
-	private void startDepartureProcedure(String flightURI, String planeURI) {
+	private void startDepartureProcedure(String flightUri, String planeUri) {
+		planesAtAirport.remove(planeUri);
+		
 		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 		msg.addReceiver(new AID(AgentAddresses.getPassangerServiceAgentAddress(),
 				AID.ISLOCALNAME));
 		msg.setLanguage(AgentAddresses.getLang());
 		msg.setOntology(Constants.ontoURL);
-		msg.setContent(flightURI + ";" + planeURI);
+		msg.setContent(flightUri + ";" + planeUri);
 		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.LEAVING_AT));
 
 		agent.send(msg);

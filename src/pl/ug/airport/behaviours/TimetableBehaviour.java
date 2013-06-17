@@ -63,11 +63,9 @@ public class TimetableBehaviour extends AirportBaseBehaviour {
 	}
 
 	private Set<String> pickFlightTimetable(String request) {
-		
 		OWLClass flight = manager.getOWLDataFactory().getOWLClass(IRI.create(Constants.ontoLot));
 		Set<OWLNamedIndividual> flightIndividuals = reasoner.getInstances(flight, true).getFlattened();
 		
-
 		Map<OWLDataProperty, String> expected = parseRequest(request);
 		
 		Set<OWLNamedIndividual> correctFlights = flightIndividuals;

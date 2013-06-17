@@ -1,5 +1,7 @@
 package pl.ug.airport.behaviours;
 
+import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
+
 import pl.ug.airport.agents.PlaneAgent;
 import pl.ug.airport.helpers.AirportLogger;
 import pl.ug.airport.helpers.Constants;
@@ -8,17 +10,18 @@ import pl.ug.airport.helpers.PlaneStatus;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
 import jade.core.AID;
-import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class PlaneBehaviour extends CyclicBehaviour {
+public class PlaneBehaviour extends AirportBaseBehaviour {
 
 	private PlaneAgent agent;
 
 	private String TAG = "PlaneAgent: ";
 
 	private Boolean test = false;
+	
+	//TODO: hard coded
+	private String seflUri = "http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#Orzel";
 	
 	public PlaneBehaviour(PlaneAgent _agent) {
 		agent = _agent;
@@ -36,15 +39,12 @@ public class PlaneBehaviour extends CyclicBehaviour {
 		
 		ACLMessage msg = agent.receive();		
 		if(msg != null){
-			try {
 			handleAirportMessage(msg);
-			} catch(NullPointerException ex) {}
 		}else{
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) { }
+			pause(1000);
 			sendMessages();
-			block();
+			//NON blocking
+			//block();
 		}
 	}
 
@@ -62,9 +62,7 @@ public class PlaneBehaviour extends CyclicBehaviour {
 			case LEAVING_AT:
 				AirportLogger.log(TAG + "Was scheduled for departure");
 				
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) { }
+				pause(1000);
 				
 				String[] content = msg.getContent().split(";");
 				String flightUri = content[0];
@@ -80,9 +78,8 @@ public class PlaneBehaviour extends CyclicBehaviour {
 					agent.setPlaneStatus(PlaneStatus.AT_FLIGHT);
 				}else{
 					AirportLogger.log(TAG + "Refused. Waiting then asking one more time");
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) { }
+
+					pause(1000);
 					
 					String[] refusedFlight = msg.getContent().split(";");
 					String refusedFlightUri = refusedFlight[0];
@@ -145,23 +142,31 @@ public class PlaneBehaviour extends CyclicBehaviour {
 			break;
 		case AT_FLIGHT:
 			AirportLogger.log(TAG + "Up in the sky");
-			
+			pause(1000);
 			prepareToLand();
 			//break;
 		case LANDING: 
+			pause(1000);
 			AirportLogger.log(TAG + "Is going to land");
 			land();
-			this.send(AgentAddresses.getTechServiceAgentAddress(),
-					StringMessages.REQUEST_INSPECTION);
+			requestServiceCheck();
 			break;
 		}
 	}
 
+	private void requestServiceCheck() {
+		send(AgentAddresses.getTechServiceAgentAddress(), seflUri);
+	}
+
 	private void send(String address, StringMessages msgContent) {
+		send(address, msgContent.toString());
+	}
+	
+	private void send(String address, String msgContent) {
 		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 		msg.addReceiver(new AID(address, AID.ISLOCALNAME));
 		msg.setLanguage(AgentAddresses.getLang());
-		msg.setContent(msgContent.toString());
+		msg.setContent(msgContent);
 		agent.send(msg);
 	}
 	
@@ -177,8 +182,6 @@ public class PlaneBehaviour extends CyclicBehaviour {
 
 	private void prepareToLand() {
 		agent.setPlaneStatus(PlaneStatus.LANDING);
-		
-		
 	}
 	
 	private void requestLandingPermission() {

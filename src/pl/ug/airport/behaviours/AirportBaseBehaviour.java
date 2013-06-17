@@ -97,4 +97,10 @@ public abstract class AirportBaseBehaviour extends CyclicBehaviour {
 		}
 		return uris;
 	}
+	
+	protected void pause(long milis){
+		try {
+			Thread.sleep(milis);
+		} catch (InterruptedException e) { }
+	}
 }
