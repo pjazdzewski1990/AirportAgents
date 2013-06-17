@@ -15,12 +15,24 @@ public class PlaneAgent extends Agent {
 	private boolean flightReady = false;
 	private boolean crewReady = false;
 	private boolean scheduled = false;
+	private String planeUri;
 	
 	private PlaneStatus planeStatus = PlaneStatus.AT_AIRPORT;
+
 	
 	@Override
 	protected void setup() {
-		Behaviour plane = new PlaneBehaviour(this);
+		Behaviour plane;
+		Object[] args = getArguments();
+		//System.out.println(args[0].toString());
+		if(args!=null && args.length>0) {
+			planeUri = args[0].toString();
+			System.out.println("uri dynamic start agent" + planeUri);
+		plane = new PlaneBehaviour(this, planeUri);
+		
+		} else {
+			plane = new PlaneBehaviour(this);
+		}
 		this.addBehaviour(plane);
 	}
 

@@ -1,6 +1,7 @@
 package pl.ug.airport.behaviours;
 
 import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 import pl.ug.airport.agents.PlaneAgent;
 import pl.ug.airport.helpers.AirportLogger;
@@ -26,14 +27,25 @@ public class PlaneBehaviour extends AirportBaseBehaviour {
 	public PlaneBehaviour(PlaneAgent _agent) {
 		agent = _agent;
 	}
+	
+	public PlaneBehaviour(PlaneAgent _agent, String planeUri) {
+		agent = _agent;
+		this.seflUri = planeUri;
+		requestConfigData();
+	}
+
+	private void requestConfigData() {
+		OWLNamedIndividual indv = getIndividualByUri(this.seflUri);
+		
+	}
 
 	@Override
 	public void action() {
 		if(!test) {
 //			requestLandingPermission();
-			test=true;
-			System.out.println("Panie pilocie, dziura w samolocie");
-			failureUnicast("0","0","0");
+			//test=true;
+			//System.out.println("Panie pilocie, dziura w samolocie");
+			//failureUnicast("0","0","0");
 		
 		}
 		
