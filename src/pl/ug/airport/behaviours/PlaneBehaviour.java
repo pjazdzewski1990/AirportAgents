@@ -33,7 +33,9 @@ public class PlaneBehaviour extends CyclicBehaviour {
 		
 		ACLMessage msg = agent.receive();		
 		if(msg != null){
+			try {
 			handleAirportMessage(msg);
+			} catch(NullPointerException ex) {}
 		}else{
 			try {
 				Thread.sleep(1000);
