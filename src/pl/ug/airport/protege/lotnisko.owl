@@ -62,6 +62,9 @@
         <ObjectProperty IRI="#Informuje_o_transferze_pasazera"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#Komunikuje_sie"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#Kupuje_bilet"/>
     </Declaration>
     <Declaration>
@@ -159,6 +162,9 @@
     </Declaration>
     <Declaration>
         <DataProperty IRI="#Standardowa"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Wiadomosc"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#Zmiany_lotow"/>
@@ -409,6 +415,13 @@
     <SubClassOf>
         <Class IRI="#Samolot"/>
         <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Komunikuje_sie"/>
+            <Class IRI="#Kontrola_lotow"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Samolot"/>
+        <ObjectSomeValuesFrom>
             <ObjectProperty IRI="#Odbywa_rejs"/>
             <Class IRI="#Lot"/>
         </ObjectSomeValuesFrom>
@@ -574,17 +587,12 @@
         <NamedIndividual IRI="#Zaslabniecie"/>
     </ClassAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#Informuje_o_transferze_pasazera"/>
+        <ObjectProperty IRI="#Komunikuje_sie"/>
         <NamedIndividual IRI="#BW0900"/>
         <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Potwierdza_odbiór_wiadomosci"/>
-        <NamedIndividual IRI="#BW0900"/>
-        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#Zglasza_awarie"/>
         <NamedIndividual IRI="#BW0900"/>
         <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ObjectPropertyAssertion>
@@ -791,6 +799,10 @@
         <Class IRI="#Samolot"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Komunikuje_sie"/>
+        <Class IRI="#Samolot"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#Kupuje_bilet"/>
         <Class IRI="#Pasazer"/>
     </ObjectPropertyDomain>
@@ -877,6 +889,13 @@
         <ObjectProperty IRI="#Informuje_o_transferze_pasazera"/>
         <DataSomeValuesFrom>
             <DataProperty IRI="#Numer_lotu"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Komunikuje_sie"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#Wiadomosc"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </ObjectPropertyRange>
@@ -1070,6 +1089,10 @@
         <Class IRI="#Samolot"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
+        <DataProperty IRI="#Wiadomosc"/>
+        <Class IRI="#Samolot"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
         <DataProperty IRI="#Zmiany_lotow"/>
         <Class IRI="#Kontrola_lotow"/>
     </DataPropertyDomain>
@@ -1127,6 +1150,10 @@
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#Standardowa"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Wiadomosc"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
