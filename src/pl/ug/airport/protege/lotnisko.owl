@@ -467,6 +467,13 @@
     <SubClassOf>
         <Class IRI="#Samolot"/>
         <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Ma_numer_lotu"/>
+            <Class IRI="#Lot"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Samolot"/>
+        <ObjectSomeValuesFrom>
             <ObjectProperty IRI="#Odbywa_rejs"/>
             <Class IRI="#Lot"/>
         </ObjectSomeValuesFrom>
@@ -768,6 +775,16 @@
         <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
+        <NamedIndividual IRI="#British_airways"/>
+        <NamedIndividual IRI="#WL2000"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
+        <NamedIndividual IRI="#British_airways"/>
+        <NamedIndividual IRI="#WL1800"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Przydziela_zaloge"/>
         <NamedIndividual IRI="#British_airways"/>
         <NamedIndividual IRI="#WL1800"/>
@@ -808,6 +825,21 @@
         <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
+        <NamedIndividual IRI="#Lot"/>
+        <NamedIndividual IRI="#WB1230"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
+        <NamedIndividual IRI="#Lot"/>
+        <NamedIndividual IRI="#WG1600"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
+        <NamedIndividual IRI="#Lot"/>
+        <NamedIndividual IRI="#WP0800"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Przydziela_zaloge"/>
         <NamedIndividual IRI="#Lot"/>
         <NamedIndividual IRI="#WP0800"/>
@@ -821,6 +853,16 @@
         <ObjectProperty IRI="#Przydziela_zaloge"/>
         <NamedIndividual IRI="#Lot"/>
         <NamedIndividual IRI="#WB1230"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odwoluje_lot"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+        <NamedIndividual IRI="#Do_remontu"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odwoluje_lot"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+        <NamedIndividual IRI="#Nie_gotowy"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Pozwala_startowac"/>
@@ -891,6 +933,11 @@
         <ObjectProperty IRI="#Pozwala_startowac"/>
         <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
         <NamedIndividual IRI="#WG1600"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Pozwala_startowac"/>
+        <NamedIndividual IRI="#Lotnisko_Frederyka_Chopina"/>
+        <NamedIndividual IRI="#Gotowy"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Komunikuje_sie"/>
@@ -991,6 +1038,16 @@
         <ObjectProperty IRI="#Ma_numer_lotu"/>
         <NamedIndividual IRI="#Przylot_Paryz_18:00"/>
         <NamedIndividual IRI="#PW1800"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
+        <NamedIndividual IRI="#Rayanair"/>
+        <NamedIndividual IRI="#WO1520"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#Odprawia_pasazer"/>
+        <NamedIndividual IRI="#Rayanair"/>
+        <NamedIndividual IRI="#WP1000"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#Przydziela_zaloge"/>
@@ -1115,12 +1172,12 @@
     <DataPropertyAssertion>
         <DataProperty IRI="#Nazwisko_pracownika"/>
         <NamedIndividual IRI="#Lot"/>
-        <Literal datatypeIRI="&xsd;string">Pomorski</Literal>
+        <Literal datatypeIRI="&xsd;string">Andrzejewski</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#Nazwisko_pracownika"/>
         <NamedIndividual IRI="#Lot"/>
-        <Literal datatypeIRI="&xsd;string">Andrzejewski</Literal>
+        <Literal datatypeIRI="&xsd;string">Pomorski</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#Godzina_odlotu"/>
