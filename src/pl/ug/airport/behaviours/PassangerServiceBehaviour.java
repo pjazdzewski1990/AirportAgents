@@ -3,6 +3,7 @@ package pl.ug.airport.behaviours;
 import java.util.Set;
 
 import pl.ug.airport.helpers.AirportLogger;
+import pl.ug.airport.helpers.Constants;
 import pl.ug.airport.helpers.HelperMethods;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
@@ -26,15 +27,12 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 		// TODO Auto-generated method stub
 		ACLMessage msg = myAgent.receive();
 		if (msg != null) {
-			try {
-				//StringMessages messageStr = StringMessages.parseString(msg.getContent());
-				messageHandler(msg);
-				
-				
-			} catch(IllegalArgumentException ex){}
-			catch(NullPointerException ex){}
+			messageHandler(msg);
 		}
 		else {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) { }
 			block();
 		} 
 	}
@@ -68,7 +66,13 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 			
 		case LEAVING_AT:
 			AirportLogger.log(TAG + " Saving flight data");
-			send(AgentAddresses.getPassangerAgentAddress(0), StringMessages.INFORM_ABOUT_FLIGHT);
+			
+			String[] content = msg.getContent().split(";");
+			String flightUri = content[0];
+			String planeUri = content[1];
+			
+			informPassanger(flightUri, planeUri);
+			informPlane(flightUri, planeUri);
 			break;
 			
 		default:
@@ -78,6 +82,31 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 		
 	}
 	
+	private void informPlane(String flightUri, String planeUri) {
+		ACLMessage msg = createMessage(flightUri, planeUri);
+		//TODO: który samolot powinienem poinformowac
+		msg.addReceiver(new AID(AgentAddresses.getPlaneAgentAddress(0),
+				AID.ISLOCALNAME));
+		agent.send(msg);
+	}
+
+	private void informPassanger(String flightUri, String planeUri) {
+		ACLMessage msg = createMessage(flightUri, planeUri);
+		//TODO: którego pasazera powinienem poinformowac
+		msg.addReceiver(new AID(AgentAddresses.getPassangerAgentAddress(0),
+				AID.ISLOCALNAME));
+		agent.send(msg);
+	}
+
+	private ACLMessage createMessage(String flightUri, String planeUri) {
+		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+		msg.setLanguage(AgentAddresses.getLang());
+		msg.setOntology(Constants.ontoURL);
+		msg.setContent(flightUri + ";" + planeUri);
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.LEAVING_AT));
+		return msg;
+	}
+
 	private void send(String address, StringMessages msgContent) {
 		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 		msg.addReceiver(new AID(address, AID.ISLOCALNAME));
@@ -94,12 +123,6 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 	
 	private void informFlight() {
 		send(AgentAddresses.getPassangerAgentAddress(1), StringMessages.INFORM_ABOUT_FLIGHT);
-	}
-
-	@Override
-	public boolean done() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

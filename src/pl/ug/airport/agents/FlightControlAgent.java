@@ -9,19 +9,9 @@ import jade.core.behaviours.Behaviour;
  */
 public class FlightControlAgent extends Agent {
 	
-	private int availablePlanes = 0;
-	
 	@Override
 	protected void setup() {
 		Behaviour control = new FlightControlBehaviour(this);
 		this.addBehaviour(control);
-	}
-
-	public int getAvailablePlanes() {
-		return availablePlanes;
-	}
-
-	public void setAvailablePlanes(int availablePlanes) {
-		this.availablePlanes = availablePlanes;
 	}
 }

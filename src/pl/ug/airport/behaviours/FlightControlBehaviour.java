@@ -1,62 +1,74 @@
 package pl.ug.airport.behaviours;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 import pl.ug.airport.agents.FlightControlAgent;
 import pl.ug.airport.helpers.AirportLogger;
+import pl.ug.airport.helpers.Constants;
 import pl.ug.airport.helpers.HelperMethods;
 import pl.ug.airport.helpers.PlaneStatus;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
 import jade.core.AID;
-import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class FlightControlBehaviour extends CyclicBehaviour {
+public class FlightControlBehaviour extends AirportBaseBehaviour {
 
 	private FlightControlAgent agent;
 
 	private String TAG = "FlightControlAgent: ";
 	
+	private Set<String> flights;
+	
+	private int maxPlanesAtAirport = 1;
+	private Set<String> planesAtAirport;
+	
 	public FlightControlBehaviour(FlightControlAgent _agent){
 		agent = _agent;
+		
+		OWLClass flight = manager.getOWLDataFactory().getOWLClass(IRI.create(Constants.ontoLot));
+		flights = individualsToUriStrings(reasoner.getInstances(flight, true).getFlattened());
+		
+		//TODO: hard coded
+		planesAtAirport = new HashSet<>();
+		planesAtAirport.add("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#Orzel");
 	}
 	
 	@Override
 	public void action() {
 		ACLMessage msg = agent.receive();
 		if (msg != null) {
-			//
-			try{
 			handleAirportMessage(msg);
-			} catch (NullPointerException ex) {}
-			
-		}else{
-			//sendMessages();
-			block();
+		} else {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) { }
+			sendMessages();
+//			block();
 		}
 	}
-
-	/*public void receiveMessages(ACLMessage rec) {
-		try {
-			StringMessages message = StringMessages.parseString(rec.getContent());
-			handleAirportMessage(message);
-		} catch(IllegalArgumentException ex){}
-	}*/
 	
 	private void handleAirportMessage(ACLMessage msg) {
+		ACLMessage reply;
+		
 		switch(HelperMethods.getConvTag(msg.getConversationId())) {
-			
 			
 		case CLOSE_TO_AIRPORT:
 			AirportLogger.log(TAG + "Plane is closing in. Prepare airfield");
 			break;
 		case REQUEST_LANDING:
-			AirportLogger.log(TAG + "Plane is requesting landing permission. Granted");
-			agent.setAvailablePlanes( agent.getAvailablePlanes() + 1 );
+			AirportLogger.log(TAG + "Plane is requesting landing permission.");
+			//TODO: 
+			//agent.setAvailablePlanes( agent.getAvailablePlanes() + 1 );
 			
-			ACLMessage reply = msg.createReply();
+			reply = msg.createReply();
 			reply.setContent(msg.getContent());
 			reply.setConversationId(HelperMethods.switchTag(StringMessages.PERMISSION_TO_LAND, msg.getConversationId()));
 			
@@ -65,9 +77,26 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 		case PASSANGERS_LEFT:
 			AirportLogger.log(TAG + "Plane is empty");
 			break;
-		case TAKE_OFF:
-			AirportLogger.log(TAG + "Plane left the airport. Bye");
-			agent.setAvailablePlanes( agent.getAvailablePlanes() - 1 );
+		case REQUEST_TAKEOFF:
+			AirportLogger.log(TAG + "Plane requested take off permission");
+			
+			String[] content = msg.getContent().split(";");
+			String planeUri = content[1];
+			planesAtAirport.remove(planeUri);
+			
+			if(new Random().nextBoolean()){
+				AirportLogger.log(TAG + "Plane left the airport. Bye");
+				
+				reply = msg.createReply();
+				reply.setPerformative(ACLMessage.AGREE);
+			} else {
+				AirportLogger.log(TAG + "Plane was stopped from leaving.");
+				
+				reply = msg.createReply();
+				reply.setPerformative(ACLMessage.REFUSE);
+			}
+			reply.setContent(msg.getContent());
+			agent.send(reply);
 			break;
 		case PLANE_READY:
 			AirportLogger.log(TAG + "Plane is ready for scheduling");
@@ -77,26 +106,35 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 		}
 	}
 	
-
 	private void sendMessages() {
-		if(agent.getAvailablePlanes() > 0){
-			switch (new Random().nextInt(10)) {
-			case 0://odlot
-				//FIXME: trzeba znac identyfiaktor samolotu, ktorego chcemy wystartowac
-				this.send(AgentAddresses.getPlaneAgentAddress(0),
-						StringMessages.LEAVING_AT);
-				break;
-			case 1://informuj o opoznieniu
-				//FIXME: trzeba znac identyfiaktor samolotu, ktorego chcemy opoznic
-				this.send(AgentAddresses.getPassangerServiceAgentAddress(),
-						StringMessages.FLIGHTPLAN_WAS_CHANGED);
+		int random = new Random().nextInt(5);
+		switch (random) {
+			case 1://odlot
+				//FIXME: trzeba znac identyfikator samolotu, ktorego chcemy wystartowac
+				Iterator<String> flightsIterator = flights.iterator();
+				Iterator<String> planesIterator = planesAtAirport.iterator();
+
+				if(flightsIterator.hasNext() && planesIterator.hasNext()){
+					startDepartureProcedure(flightsIterator.next(), planesIterator.next());
+				}
 				break;
 			default:
-				break;
-			}
+//				break;
 		}
 	}
 	
+	private void startDepartureProcedure(String flightURI, String planeURI) {
+		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+		msg.addReceiver(new AID(AgentAddresses.getPassangerServiceAgentAddress(),
+				AID.ISLOCALNAME));
+		msg.setLanguage(AgentAddresses.getLang());
+		msg.setOntology(Constants.ontoURL);
+		msg.setContent(flightURI + ";" + planeURI);
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.LEAVING_AT));
+
+		agent.send(msg);
+	}
+
 	private void send(String address, StringMessages msgContent) {
 		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 		msg.addReceiver(new AID(address, AID.ISLOCALNAME));

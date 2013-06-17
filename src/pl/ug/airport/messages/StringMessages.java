@@ -23,7 +23,8 @@ public enum StringMessages {
 	//plane agent
 	REQUEST_CREW,
 	CLOSE_TO_AIRPORT,
-	REQUEST_LANDING,
+	REQUEST_LANDING, 
+	REQUEST_TAKEOFF,
 	PASSANGERS_LEFT,
 	REQUEST_INSPECTION,
 	TAKE_OFF,
@@ -54,6 +55,7 @@ public enum StringMessages {
 			case "REQUEST_CREW": return REQUEST_CREW;
 			case "CLOSE_TO_AIRPORT": return CLOSE_TO_AIRPORT;
 			case "REQUEST_LANDING": return REQUEST_LANDING;
+			case "REQUEST_TAKEOFF": return REQUEST_TAKEOFF;
 			case "PASSANGERS_LEFT": return PASSANGERS_LEFT;
 			case "REQUEST_INSPECTION": return REQUEST_INSPECTION;
 			case "TAKE_OFF": return TAKE_OFF;

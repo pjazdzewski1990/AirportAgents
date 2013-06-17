@@ -26,8 +26,9 @@ import pl.ug.airport.helpers.Constants;
 
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.CyclicBehaviour;
 
-public abstract class AirportBaseBehaviour extends Behaviour {
+public abstract class AirportBaseBehaviour extends CyclicBehaviour {
 
 	protected OWLOntology ontology;
 	protected OWLReasoner reasoner;

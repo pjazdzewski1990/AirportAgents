@@ -209,6 +209,9 @@
         <NamedIndividual IRI="#Odlot_Londyn_18:00"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#Orzel"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#Przylot_Berlin_9:00"/>
     </Declaration>
     <Declaration>
@@ -509,6 +512,10 @@
     <ClassAssertion>
         <Class IRI="#Rozklad_lotow"/>
         <NamedIndividual IRI="#Odlot_Londyn_18:00"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Dream_liner"/>
+        <NamedIndividual IRI="#Orzel"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Rozklad_lotow"/>

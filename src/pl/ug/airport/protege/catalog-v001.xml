@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1371417732104" name="http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko" uri="lotnisko.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1371456685110" name="http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko" uri="lotnisko.owl"/>
     </group>
 </catalog>

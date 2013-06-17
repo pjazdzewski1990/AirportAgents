@@ -102,6 +102,7 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 			// StringMessages.RESPONSE_OK);
 			break;
 
+		case LEAVING_AT:
 		case INFORM_ABOUT_FLIGHT:
 			AirportLogger.log(TAG + " Reminded about flight");
 			break;
@@ -111,13 +112,7 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 			break;
 		}
 	}
-
-	@Override
-	public boolean done() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	public void askForFlight() {
 		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_IF);
 		msg.addReceiver(new AID(AgentAddresses.getTimetableAddress(),

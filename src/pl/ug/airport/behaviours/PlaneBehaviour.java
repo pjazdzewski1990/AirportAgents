@@ -26,43 +26,29 @@ public class PlaneBehaviour extends CyclicBehaviour {
 
 	@Override
 	public void action() {
-		if(agent.isScheduled() && agent.isFlightReady() && agent.isCrewReady()){
-			agent.setPassangersOnBoard(true);
-			takeoff();
-			//block();
-		}
-		ACLMessage msg = agent.receive();
-		if(!test) {
-		requestLandingPermission();
-		test=true;
-		}
+//		if(!test) {
+//			requestLandingPermission();
+//			test=true;
+//		}
+		
+		ACLMessage msg = agent.receive();		
 		if(msg != null){
-			
-			
 			handleAirportMessage(msg);
-			//receiveMessages(rec);
 		}else{
-			block();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) { }
 			sendMessages();
+			block();
 		}
 	}
-
-
-
-	/*public void receiveMessages(ACLMessage rec) {
-		try {
-			StringMessages message = StringMessages.parseString(rec.getContent());
-			handleAirportMessage(message);
-		} catch(IllegalArgumentException ex){}
-	}*/
 
 	private void handleAirportMessage(ACLMessage msg) {
 		if (agent.getPlaneStatus() == PlaneStatus.AT_AIRPORT) {
 			
-				switch(HelperMethods.getConvTag(msg.getConversationId())) {
+			switch(HelperMethods.getConvTag(msg.getConversationId())) {
 				
 			case PERMISSION_TO_LAND:
-				
 				System.out.println("Landing! "+ msg.getContent());
 				
 				break;
@@ -70,20 +56,35 @@ public class PlaneBehaviour extends CyclicBehaviour {
 			case LEAVING_AT:
 				AirportLogger.log(TAG + "Was scheduled for departure");
 				
-				if (!agent.isFlightReady()) {
-					AirportLogger.log(TAG + "Was scheduled for departure - needs service");
-					this.send(AgentAddresses.getTechServiceAgentAddress(),
-							StringMessages.REQUEST_INSPECTION);
-				}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) { }
 				
-				if (!agent.isCrewReady()) {
-					AirportLogger.log(TAG + "Was scheduled for departure - crew not on board");
-					this.send(AgentAddresses.getStaffAgentAddress(),
-							StringMessages.REQUEST_CREW);
-				}
+				String[] content = msg.getContent().split(";");
+				String flightUri = content[0];
+				String planeUri = content[1];
+				requestTakeoffPermission(flightUri, planeUri);
 				
-				agent.setScheduled(true);
 				break;
+				
+			case REQUEST_TAKEOFF:
+				AirportLogger.log(TAG + "Received response for TAKEOFF");
+				if(msg.getPerformative() == ACLMessage.AGREE){
+					AirportLogger.log(TAG + "OK to leave. Starting engines");
+					agent.setPlaneStatus(PlaneStatus.AT_FLIGHT);
+				}else{
+					AirportLogger.log(TAG + "Refused. Waiting then asking one more time");
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) { }
+					
+					String[] refusedFlight = msg.getContent().split(";");
+					String refusedFlightUri = refusedFlight[0];
+					String refusedPlaneUri = refusedFlight[1];
+					requestTakeoffPermission(refusedFlightUri, refusedPlaneUri);
+				}
+				break;
+				
 			case PLANE_READY:
 				AirportLogger.log(TAG + "Was inspected");
 				agent.setFlightReady(true);
@@ -98,22 +99,33 @@ public class PlaneBehaviour extends CyclicBehaviour {
 		}
 	}
 
+	private void requestTakeoffPermission(String flightUri, String planeUri) {
+		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+		msg.addReceiver(new AID(AgentAddresses.getFlightAgentAddress(),
+				AID.ISLOCALNAME));
+		msg.setLanguage(AgentAddresses.getLang());
+		msg.setOntology(Constants.ontoURL);
+		msg.setContent(flightUri + ";" + planeUri);
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.REQUEST_TAKEOFF));
+
+		agent.send(msg);
+	}
+
 	private void sendMessages() {
 		switch (agent.getPlaneStatus()) {
 		case AT_AIRPORT: 
-			if(agent.isPassangersOnBoard()){
-				AirportLogger.log(TAG + "Passangers have left the plane");
-				agent.setPassangersOnBoard(false);
-				this.send(AgentAddresses.getPassangerServiceAgentAddress(),
-						StringMessages.PASSANGERS_LEFT);
-				this.send(AgentAddresses.getFlightAgentAddress(),
-						StringMessages.PASSANGERS_LEFT);
-			}
+//			if(agent.isPassangersOnBoard()){
+//				AirportLogger.log(TAG + "Passangers have left the plane");
+//				agent.setPassangersOnBoard(false);
+//				this.send(AgentAddresses.getPassangerServiceAgentAddress(),
+//						StringMessages.PASSANGERS_LEFT);
+//				this.send(AgentAddresses.getFlightAgentAddress(),
+//						StringMessages.PASSANGERS_LEFT);
+//			}
 			break;
 		case AT_FLIGHT:
 			AirportLogger.log(TAG + "Up in the sky");
-			this.send(AgentAddresses.getFlightAgentAddress(),
-				StringMessages.CLOSE_TO_AIRPORT);
+			
 			prepareToLand();
 			//break;
 		case LANDING: 
@@ -157,7 +169,6 @@ public class PlaneBehaviour extends CyclicBehaviour {
 		msg.setOntology(Constants.ontoURL);
 		msg.setContent(this.getFlightURI());
 		agent.send(msg);
-		
 	}
 	
 	private String getFlightURI() {

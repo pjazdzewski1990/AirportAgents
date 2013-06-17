@@ -112,12 +112,4 @@ public class TimetableBehaviour extends AirportBaseBehaviour {
 		return expected;
 	}
 
-	@Override
-	public boolean done() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	
-
 }
