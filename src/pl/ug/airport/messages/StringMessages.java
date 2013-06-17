@@ -9,6 +9,7 @@ public enum StringMessages {
 	//flight control agent
 	LEAVING_AT,
 	FLIGHTPLAN_WAS_CHANGED,
+	PERMISSION_TO_LAND,
 	//passanger agent
 	FLIGHT_INFO,
 	RESERVATION,
@@ -38,7 +39,8 @@ public enum StringMessages {
 			
 			case "LEAVING_AT": return LEAVING_AT;
 			case "FLIGHTPLAN_WAS_CHANGED": return FLIGHTPLAN_WAS_CHANGED;
-			
+			case "PERMISSION_TO_LAND": return PERMISSION_TO_LAND;
+					
 			case "RESERVATION": return RESERVATION;
 			case "FLIGHT_INFO": return FLIGHT_INFO;
 			case "FLIGHT_TABLE_REQUEST": return FLIGHT_TABLE_REQUEST;

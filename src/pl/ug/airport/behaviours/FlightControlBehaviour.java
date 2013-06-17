@@ -4,6 +4,7 @@ import java.util.Random;
 
 import pl.ug.airport.agents.FlightControlAgent;
 import pl.ug.airport.helpers.AirportLogger;
+import pl.ug.airport.helpers.HelperMethods;
 import pl.ug.airport.helpers.PlaneStatus;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
@@ -24,30 +25,42 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 	
 	@Override
 	public void action() {
-		ACLMessage rec = agent.receive();
-		if (rec != null) {
-			receiveMessages(rec);
+		ACLMessage msg = agent.receive();
+		if (msg != null) {
+			//
+			try{
+			handleAirportMessage(msg);
+			} catch (NullPointerException ex) {}
+			
 		}else{
-			sendMessages();
+			//sendMessages();
 			block();
 		}
 	}
 
-	public void receiveMessages(ACLMessage rec) {
+	/*public void receiveMessages(ACLMessage rec) {
 		try {
 			StringMessages message = StringMessages.parseString(rec.getContent());
 			handleAirportMessage(message);
 		} catch(IllegalArgumentException ex){}
-	}
+	}*/
 	
-	private void handleAirportMessage(StringMessages message) {
-		switch (message) {
+	private void handleAirportMessage(ACLMessage msg) {
+		switch(HelperMethods.getConvTag(msg.getConversationId())) {
+			
+			
 		case CLOSE_TO_AIRPORT:
 			AirportLogger.log(TAG + "Plane is closing in. Prepare airfield");
 			break;
 		case REQUEST_LANDING:
 			AirportLogger.log(TAG + "Plane is requesting landing permission. Granted");
 			agent.setAvailablePlanes( agent.getAvailablePlanes() + 1 );
+			
+			ACLMessage reply = msg.createReply();
+			reply.setContent(msg.getContent());
+			reply.setConversationId(HelperMethods.switchTag(StringMessages.PERMISSION_TO_LAND, msg.getConversationId()));
+			
+			agent.send(reply);
 			break;	
 		case PASSANGERS_LEFT:
 			AirportLogger.log(TAG + "Plane is empty");
@@ -60,10 +73,11 @@ public class FlightControlBehaviour extends CyclicBehaviour {
 			AirportLogger.log(TAG + "Plane is ready for scheduling");
 			break;
 		default:
-			AirportLogger.log(TAG + "Unknown message received " + message);
+			//AirportLogger.log(TAG + "Unknown message received " + message);
 		}
 	}
 	
+
 	private void sendMessages() {
 		if(agent.getAvailablePlanes() > 0){
 			switch (new Random().nextInt(10)) {

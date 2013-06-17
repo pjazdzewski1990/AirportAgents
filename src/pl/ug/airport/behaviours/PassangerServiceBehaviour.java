@@ -32,6 +32,7 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 				
 				
 			} catch(IllegalArgumentException ex){}
+			catch(NullPointerException ex){}
 		}
 		else {
 			block();

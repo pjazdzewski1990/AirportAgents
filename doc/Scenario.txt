@@ -1,11 +1,11 @@
 Scenariusze
 
 1| pasa¿er pyta siê o loty podobne do oczekiwanego  
-   pasa¿er -> rozklad lotow -> pasa¿er		OK
+   pasa¿er -> rozklad lotow -> pasa¿er		------do wykoñczenia
 2| pasa¿er pragnie dokonaæ rezerwacji na wybrany lot
-   pasa¿er -> obs³uga pasa¿era -> pasa¿er 	MARCIN
+   pasa¿er -> obs³uga pasa¿era -> pasa¿er 	------do wykoñczenia
 3| samolot prosi o pozwolenie na l¹dowanie
-   samolot -[URI LOT, URI ROZKLAD_LOTOW]-> kontrola lotów -[YES/NO]-> samolot
+   samolot -[URI LOT, URI ROZKLAD_LOTOW]-> kontrola lotów -[YES/NO]-> samolot -----do weryfikacji/wykoñczenia
 4| znajduj¹cy siê w poblizu samolot zg³asza awariê, trzeba go posadziæ na lotnisku
    samolot -[URI LOT, URI ROZKLAD LOTOW, URI AWARIA]-> kontrola lotów -> samolot
 								      -> obs³uga techniczna

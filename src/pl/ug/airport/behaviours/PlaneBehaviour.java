@@ -2,6 +2,8 @@ package pl.ug.airport.behaviours;
 
 import pl.ug.airport.agents.PlaneAgent;
 import pl.ug.airport.helpers.AirportLogger;
+import pl.ug.airport.helpers.Constants;
+import pl.ug.airport.helpers.HelperMethods;
 import pl.ug.airport.helpers.PlaneStatus;
 import pl.ug.airport.messages.AgentAddresses;
 import pl.ug.airport.messages.StringMessages;
@@ -16,6 +18,8 @@ public class PlaneBehaviour extends CyclicBehaviour {
 
 	private String TAG = "PlaneAgent: ";
 
+	private Boolean test = false;
+	
 	public PlaneBehaviour(PlaneAgent _agent) {
 		agent = _agent;
 	}
@@ -27,25 +31,42 @@ public class PlaneBehaviour extends CyclicBehaviour {
 			takeoff();
 			//block();
 		}
-		ACLMessage rec = agent.receive();
-		if(rec != null){
-			receiveMessages(rec);
+		ACLMessage msg = agent.receive();
+		if(!test) {
+		requestLandingPermission();
+		test=true;
+		}
+		if(msg != null){
+			
+			
+			handleAirportMessage(msg);
+			//receiveMessages(rec);
 		}else{
 			block();
 			sendMessages();
 		}
 	}
 
-	public void receiveMessages(ACLMessage rec) {
+
+
+	/*public void receiveMessages(ACLMessage rec) {
 		try {
 			StringMessages message = StringMessages.parseString(rec.getContent());
 			handleAirportMessage(message);
 		} catch(IllegalArgumentException ex){}
-	}
+	}*/
 
-	private void handleAirportMessage(StringMessages message) {
+	private void handleAirportMessage(ACLMessage msg) {
 		if (agent.getPlaneStatus() == PlaneStatus.AT_AIRPORT) {
-			switch (message) {
+			
+				switch(HelperMethods.getConvTag(msg.getConversationId())) {
+				
+			case PERMISSION_TO_LAND:
+				
+				System.out.println("Landing! "+ msg.getContent());
+				
+				break;
+				
 			case LEAVING_AT:
 				AirportLogger.log(TAG + "Was scheduled for departure");
 				
@@ -72,7 +93,7 @@ public class PlaneBehaviour extends CyclicBehaviour {
 				agent.setCrewReady(true);
 				break;
 			default:
-				AirportLogger.log(TAG + "Unknown message received " + message);
+				//AirportLogger.log(TAG + "Unknown message received " + message);
 			}
 		}
 	}
@@ -124,6 +145,23 @@ public class PlaneBehaviour extends CyclicBehaviour {
 
 	private void prepareToLand() {
 		agent.setPlaneStatus(PlaneStatus.LANDING);
+		
+		
+	}
+	
+	private void requestLandingPermission() {
+		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_IF);
+		msg.addReceiver(new AID(AgentAddresses.getFlightAgentAddress(), AID.ISLOCALNAME));
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.REQUEST_LANDING));
+		msg.setLanguage(AgentAddresses.getLang());
+		msg.setOntology(Constants.ontoURL);
+		msg.setContent(this.getFlightURI());
+		agent.send(msg);
+		
+	}
+	
+	private String getFlightURI() {
+		return "lot-test";
 	}
 	
 	private void callCrew() {
