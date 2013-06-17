@@ -33,6 +33,10 @@ public class TechServiceBehaviour extends CyclicBehaviour {
 	
 	private void handleAirportMessage(StringMessages message) {
 		switch(message){
+			case FAILURE_INFO:
+				//wezwanie obs³ugi
+				
+				break;
 			case REQUEST_INSPECTION: 
 				AirportLogger.log(TAG + "Performed inspection");
 				this.send(AgentAddresses.getFlightAgentAddress(), StringMessages.PLANE_READY);

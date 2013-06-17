@@ -26,10 +26,13 @@ public class PlaneBehaviour extends CyclicBehaviour {
 
 	@Override
 	public void action() {
-//		if(!test) {
+		if(!test) {
 //			requestLandingPermission();
-//			test=true;
-//		}
+			test=true;
+			System.out.println("Panie pilocie, dziura w samolocie");
+			failureUnicast("0","0","0");
+		
+		}
 		
 		ACLMessage msg = agent.receive();		
 		if(msg != null){
@@ -44,6 +47,7 @@ public class PlaneBehaviour extends CyclicBehaviour {
 			block();
 		}
 	}
+
 
 	private void handleAirportMessage(ACLMessage msg) {
 		if (agent.getPlaneStatus() == PlaneStatus.AT_AIRPORT) {
@@ -101,6 +105,20 @@ public class PlaneBehaviour extends CyclicBehaviour {
 		}
 	}
 
+	private void failureUnicast(String flightUri, String planeUri, String failureUri) {
+		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+		msg.addReceiver(new AID(AgentAddresses.getFlightAgentAddress(),
+				AID.ISLOCALNAME));
+		msg.setLanguage(AgentAddresses.getLang());
+		msg.setOntology(Constants.ontoURL);
+		msg.setContent(flightUri + ";" + planeUri + ";" + failureUri);
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.FAILURE_INFO));
+
+		agent.send(msg);
+		
+	}
+
+	
 	private void requestTakeoffPermission(String flightUri, String planeUri) {
 		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 		msg.addReceiver(new AID(AgentAddresses.getFlightAgentAddress(),

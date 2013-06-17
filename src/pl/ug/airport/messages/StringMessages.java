@@ -28,6 +28,7 @@ public enum StringMessages {
 	PASSANGERS_LEFT,
 	REQUEST_INSPECTION,
 	TAKE_OFF,
+	FAILURE_INFO,
 	//staff assignment agent
 	BOARD_PLANE,
 	//tech service agent
@@ -59,6 +60,8 @@ public enum StringMessages {
 			case "PASSANGERS_LEFT": return PASSANGERS_LEFT;
 			case "REQUEST_INSPECTION": return REQUEST_INSPECTION;
 			case "TAKE_OFF": return TAKE_OFF;
+			case "FAILURE_INFO": return FAILURE_INFO;
+			
 			
 			case "BOARD_PLANE": return BOARD_PLANE;
 			case "PLANE_READY": return PLANE_READY;

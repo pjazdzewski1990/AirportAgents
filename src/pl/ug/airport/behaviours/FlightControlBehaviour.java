@@ -59,7 +59,20 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 		ACLMessage reply;
 		
 		switch(HelperMethods.getConvTag(msg.getConversationId())) {
+		
+		case FAILURE_INFO:
+			reply = msg.createReply();
+			reply.setContent(msg.getContent());
+			reply.setConversationId(HelperMethods.switchTag(StringMessages.PERMISSION_TO_LAND, msg.getConversationId()));
 			
+			//blokada pasa
+			//broadcast do wszystkich samolotow o utrudnieniach
+			
+			agent.send(reply);
+			String[] failureData = msg.getContent().split(";");
+			getAirportSupport(failureData[0], failureData[1], failureData[2]);
+			break;
+		
 		case CLOSE_TO_AIRPORT:
 			AirportLogger.log(TAG + "Plane is closing in. Prepare airfield");
 			break;
@@ -106,6 +119,19 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 		}
 	}
 	
+	private void getAirportSupport(String flightURI, String planeURI, String failureURI) {
+		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+		msg.addReceiver(new AID(AgentAddresses.getTechServiceAgentAddress(),
+				AID.ISLOCALNAME));
+		msg.setLanguage(AgentAddresses.getLang());
+		msg.setOntology(Constants.ontoURL);
+		msg.setContent(flightURI + ";" + planeURI);
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.FAILURE_INFO));
+
+		agent.send(msg);
+		
+	}
+
 	private void sendMessages() {
 		int random = new Random().nextInt(5);
 		switch (random) {
