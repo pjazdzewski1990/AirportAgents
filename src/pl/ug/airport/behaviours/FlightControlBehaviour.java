@@ -57,7 +57,10 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 		ACLMessage reply;
 		
 		switch(HelperMethods.getConvTag(msg.getConversationId())) {
+		case REPORT_PRESENCE:
+			addPlaneToReady(msg.getContent().split(";")[1]);
 		
+		break;
 		case FAILURE_INFO:
 			reply = msg.createReply();
 			reply.setContent(msg.getContent());

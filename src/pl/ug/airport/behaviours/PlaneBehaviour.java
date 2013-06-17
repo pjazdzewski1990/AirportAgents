@@ -31,12 +31,13 @@ public class PlaneBehaviour extends AirportBaseBehaviour {
 	public PlaneBehaviour(PlaneAgent _agent, String planeUri) {
 		agent = _agent;
 		this.seflUri = planeUri;
+		test=true;
 		requestConfigData();
 	}
 
 	private void requestConfigData() {
 		OWLNamedIndividual indv = getIndividualByUri(this.seflUri);
-		getIndyvidualAssertions(indv);
+		//getIndyvidualAssertions(indv);
 		
 		reportToAirport();
 	}
@@ -67,6 +68,7 @@ public class PlaneBehaviour extends AirportBaseBehaviour {
 			handleAirportMessage(msg);
 		}else{
 			pause(1000);
+			if(test!=true)
 			sendMessages();
 			//NON blocking
 			//block();
