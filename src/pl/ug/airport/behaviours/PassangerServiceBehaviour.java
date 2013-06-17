@@ -1,5 +1,10 @@
 package pl.ug.airport.behaviours;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import pl.ug.airport.helpers.AirportLogger;
@@ -17,9 +22,10 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 	private Agent agent;
 	private String TAG = "PassangerServiceAgent: ";
 	
+	private Map<String, List<AID>> flightSubscribers = new HashMap<>(); 
+	
 	public PassangerServiceBehaviour(Agent _agent) {
 		this.agent = _agent;
-
 	}
 	
 	@Override
@@ -30,9 +36,7 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 			messageHandler(msg);
 		}
 		else {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) { }
+			pause(1000);
 			block();
 		} 
 	}
@@ -40,23 +44,21 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 	private void messageHandler(ACLMessage msg) {
 		switch(HelperMethods.getConvTag(msg.getConversationId())) {
 		case RESERVATION:
-			//indywidual do rezerwacji jest pod getIndividualByName(msg.getContent())
-			//jak zapisujemy rezerwacje??
+			String[] responseUris = msg.getContent().split(";"); 
+			String reservationUri = responseUris[ new Random().nextInt() % responseUris.length ];
+			subscribeFlight(reservationUri, msg.getSender());
 			
 			//wysy³amy potwierdzenie rezerwacji
-
 			ACLMessage reply = msg.createReply();
-			reply.setContent("1"); //tutaj jakieœ id rezerwacji dla konkretnego pasa¿era po zapisaniu...
+			reply.setContent(reservationUri); 
 			reply.setConversationId(HelperMethods.switchTag(StringMessages.RESERVATION_DONE, msg.getConversationId()));
 			
-			agent.send(reply);			
+			agent.send(reply); 
 			
-			//AirportLogger.log(TAG + " Saving Reservation");
-			//send(AgentAddresses.getPassangerAgentAddress(1), StringMessages.RESPONSE_OK);
 			break;
 			
 		case PASSANGERS_LEFT:
-			AirportLogger.log(TAG + " Passangers data clean up");
+			AirportLogger.log(TAG + " Passangers clean up");
 			break;
 			
 		case INFORM_ABOUT_CHANGES:
@@ -82,6 +84,17 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 		
 	}
 	
+	private void subscribeFlight(String reservationUri, AID sender) {
+		List<AID> subscribedPassangers = new ArrayList<>();
+		if(flightSubscribers.containsKey(reservationUri)){
+			subscribedPassangers = flightSubscribers.get(reservationUri);
+		}
+		if(!subscribedPassangers.contains(sender)){
+			subscribedPassangers.add(sender);
+		}
+		flightSubscribers.put(reservationUri, subscribedPassangers);
+	}
+
 	private void informPlane(String flightUri, String planeUri) {
 		ACLMessage msg = createMessage(flightUri, planeUri);
 		//TODO: który samolot powinienem poinformowac
@@ -93,9 +106,17 @@ public class PassangerServiceBehaviour extends AirportBaseBehaviour {
 	private void informPassanger(String flightUri, String planeUri) {
 		ACLMessage msg = createMessage(flightUri, planeUri);
 		//TODO: którego pasazera powinienem poinformowac
-		msg.addReceiver(new AID(AgentAddresses.getPassangerAgentAddress(0),
-				AID.ISLOCALNAME));
+		for(AID subscriber : subscribedPassangers(flightUri)){
+			msg.addReceiver(subscriber);
+		}
 		agent.send(msg);
+	}
+
+	private List<AID> subscribedPassangers(String flightUri) {
+		if(flightSubscribers.containsKey(flightUri)){
+			return flightSubscribers.get(flightUri);
+		}
+		return new ArrayList<AID>();
 	}
 
 	private ACLMessage createMessage(String flightUri, String planeUri) {

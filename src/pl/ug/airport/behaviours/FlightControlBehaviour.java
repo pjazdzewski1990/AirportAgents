@@ -36,7 +36,7 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 		OWLClass flight = manager.getOWLDataFactory().getOWLClass(IRI.create(Constants.ontoLot));
 		flights = individualsToUriStrings(reasoner.getInstances(flight, true).getFlattened());
 		
-		//TODO: hard coded
+		//TODO: hard coded 
 		planesAtAirport = new HashSet<>();
 		planesAtAirport.add("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#Orzel");
 	}
@@ -47,9 +47,7 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 		if (msg != null) {
 			handleAirportMessage(msg);
 		} else {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) { }
+			pause(1000);
 			sendMessages();
 //			block();
 		}
@@ -133,14 +131,20 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 	}
 
 	private void sendMessages() {
-		int random = new Random().nextInt(5);
-		switch (random) {
+		Random random = new Random();
+		switch (random.nextInt(5)) {
 			case 1://odlot
-				//FIXME: trzeba znac identyfikator samolotu, ktorego chcemy wystartowac
-				Iterator<String> flightsIterator = flights.iterator();
-				Iterator<String> planesIterator = planesAtAirport.iterator();
-
-				if(flightsIterator.hasNext() && planesIterator.hasNext()){
+				if(flights.size()>0 && planesAtAirport.size()>0){
+					int flightsOffset = random.nextInt() % flights.size(); 
+					int planesOffset = random.nextInt() % planesAtAirport.size();
+					
+					Iterator<String> flightsIterator = flights.iterator();
+					for(int i=0; i<flightsOffset; i++)
+						flightsIterator.next();
+					Iterator<String> planesIterator = planesAtAirport.iterator();
+					for(int i=0; i<planesOffset; i++)
+						planesIterator.next();
+					
 					startDepartureProcedure(flightsIterator.next(), planesIterator.next());
 				}
 				break;
