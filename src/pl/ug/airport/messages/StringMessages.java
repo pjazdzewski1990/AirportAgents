@@ -13,7 +13,10 @@ public enum StringMessages {
 	FLIGHT_INFO,
 	RESERVATION,
 	FLIGHT_TABLE_REQUEST,
+	//timetable
+	FLIGHT_TABLE_DATA,
 	//passanger service agent
+	RESERVATION_DONE,
 	INFORM_ABOUT_FLIGHT,
 	INFORM_ABOUT_CHANGES,
 	//plane agent
@@ -40,8 +43,11 @@ public enum StringMessages {
 			case "FLIGHT_INFO": return FLIGHT_INFO;
 			case "FLIGHT_TABLE_REQUEST": return FLIGHT_TABLE_REQUEST;
 			
+			case "FLIGHT_TABLE_DATA": return FLIGHT_TABLE_DATA;
+			
 			case "INFORM_ABOUT_FLIGHT": return INFORM_ABOUT_FLIGHT;
 			case "INFORM_ABOUT_CHANGES": return INFORM_ABOUT_CHANGES ;
+			case "RESERVATION_DONE": return RESERVATION_DONE ;
 			
 			case "REQUEST_CREW": return REQUEST_CREW;
 			case "CLOSE_TO_AIRPORT": return CLOSE_TO_AIRPORT;

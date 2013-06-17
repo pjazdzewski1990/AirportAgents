@@ -16,6 +16,9 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 import pl.ug.airport.helpers.AirportLogger;
+import pl.ug.airport.helpers.Constants;
+import pl.ug.airport.helpers.HelperMethods;
+import pl.ug.airport.messages.StringMessages;
 
 public class TimetableBehaviour extends AirportBaseBehaviour {
 
@@ -31,28 +34,7 @@ public class TimetableBehaviour extends AirportBaseBehaviour {
 		ACLMessage msg = myAgent.receive();
 		if (msg != null) {
 			try {
-				OWLClass flight = manager.getOWLDataFactory().getOWLClass(IRI.create("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#Lot"));
-				Set<OWLNamedIndividual> flightIndividuals = reasoner.getInstances(flight, true).getFlattened();
-				
-				String request = msg.getContent();
-				Map<OWLDataProperty, String> expected = parseRequest(request);
-				
-				Set<OWLNamedIndividual> correctFlights = flightIndividuals;
-
-				Iterator<Entry<OWLDataProperty, String>> it = expected.entrySet().iterator();
-			    while (it.hasNext()) {
-			        Entry<OWLDataProperty, String> pair = it.next();
-			        
-			        OWLDataProperty property = pair.getKey();
-			        String value = pair.getValue();
-			        
-			        correctFlights = filterIndividualsByDataPropertValue(correctFlights, property, value);
-			    }
-				
-				System.out.println("Do odeslania " + correctFlights);
-				Set<String> uris = individualsToUriStrings(correctFlights);
-				
-				replyWithflightInfo(msg.createReply(), uris);
+				messageHandler(msg);
 				
 			} catch(IllegalArgumentException ex) {
 				AirportLogger.log(TAG + " error " + ex);
@@ -62,7 +44,50 @@ public class TimetableBehaviour extends AirportBaseBehaviour {
 			block();
 		} 
 	}
+	
+	
+	private void messageHandler(ACLMessage msg) {
+		switch(HelperMethods.getConvTag(msg.getConversationId())) {
+		case FLIGHT_TABLE_REQUEST:
+			Set<String> uris = pickFlightTimetable(msg.getContent());
+			ACLMessage reply = msg.createReply();
+			
+			reply.setConversationId(HelperMethods.switchTag(StringMessages.FLIGHT_TABLE_DATA, msg.getConversationId()));
+			
+			replyWithflightInfo(reply, uris);
+			break;
+		default:
+			
+			break;
+		}
+	}
 
+	private Set<String> pickFlightTimetable(String request) {
+		
+		OWLClass flight = manager.getOWLDataFactory().getOWLClass(IRI.create(Constants.ontoLot));
+		Set<OWLNamedIndividual> flightIndividuals = reasoner.getInstances(flight, true).getFlattened();
+		
+
+		Map<OWLDataProperty, String> expected = parseRequest(request);
+		
+		Set<OWLNamedIndividual> correctFlights = flightIndividuals;
+
+		Iterator<Entry<OWLDataProperty, String>> it = expected.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Entry<OWLDataProperty, String> pair = it.next();
+	        
+	        OWLDataProperty property = pair.getKey();
+	        String value = pair.getValue();
+	        
+	        correctFlights = filterIndividualsByDataPropertValue(correctFlights, property, value);
+	    }
+		
+		Set<String> uris = individualsToUriStrings(correctFlights);
+		
+		return uris;
+		
+	}
+	
 	private void replyWithflightInfo(ACLMessage msg, Set<String> uris) {
 		StringBuilder sb = new StringBuilder();
 		for(String uri : uris){

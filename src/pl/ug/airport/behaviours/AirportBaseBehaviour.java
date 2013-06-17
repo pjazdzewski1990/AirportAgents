@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 
+import pl.ug.airport.helpers.Constants;
+
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 
@@ -32,7 +34,7 @@ public abstract class AirportBaseBehaviour extends Behaviour {
 	protected OWLOntologyManager manager;
 	protected OWLDataFactory factory;
 	
-	protected String baseURI = "http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko";
+	protected String baseURI = Constants.ontoURL;
 	
 	public AirportBaseBehaviour() {
 		manager = OWLManager.createOWLOntologyManager();
@@ -58,7 +60,7 @@ public abstract class AirportBaseBehaviour extends Behaviour {
 	}
 	
 	protected OWLClass getClassByName(String name) {
-		return factory.getOWLClass(IRI.create("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#" + name));
+		return factory.getOWLClass(IRI.create(Constants.ontoURL + "#" + name));
 	}
 	
 	protected OWLNamedIndividual getIndividualByUri(String uri){
@@ -70,7 +72,7 @@ public abstract class AirportBaseBehaviour extends Behaviour {
 	}
 	
 	protected OWLDataProperty getDataPropertyByName(String name){
-		return factory.getOWLDataProperty(IRI.create("http://www.semanticweb.org/michal/ontologies/2013/4/lotnisko#" + name));
+		return factory.getOWLDataProperty(IRI.create(Constants.ontoURL + "#" + name));
 	}
 	
 	protected Set<OWLNamedIndividual> filterIndividualsByDataPropertValue(Set<OWLNamedIndividual> individuals, OWLDataProperty property, String value) { 

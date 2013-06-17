@@ -3,6 +3,8 @@ package pl.ug.airport.helpers;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+
 import pl.ug.airport.messages.StringMessages;
 
 public class HelperMethods {
@@ -25,4 +27,12 @@ public class HelperMethods {
 		
 		return StringMessages.parseString(msg.split(";")[0]);
 	}
+	
+	public static String switchTag(StringMessages newTag, String oldId) {
+		
+		
+		return newTag + ";" + getConvId(oldId);
+	}
+	
+
 }
