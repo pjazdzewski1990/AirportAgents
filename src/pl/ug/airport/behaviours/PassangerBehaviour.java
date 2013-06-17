@@ -32,6 +32,8 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 
 	private String[] resData = { "null", "null" };
 
+	private String reservationURI; 
+	
 	public PassangerBehaviour(Agent _agent) {
 		this.agent = _agent;
 	}
@@ -43,18 +45,11 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 		// printStatus(msg);
 		if (test == 0) {
 			// System.out.println("Zapytanie o liste dostêpnych lotów");
-			// askForFlight();
-			// test=1;
+			askForFlight();
+			test=1;
 		}
 		if (msg != null) {
-			try {
-				// StringMessages messageStr =
-				// StringMessages.parseString(msg.getContent());
-
-				messageHandler(msg);
-
-			} catch (IllegalArgumentException ex) {
-			}
+			messageHandler(msg);
 		} else {
 			block();
 		}
@@ -72,16 +67,7 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 		switch (HelperMethods.getConvTag(msg.getConversationId())) {
 		case FLIGHT_TABLE_DATA:
 
-			// presentFlightData(msg.getContent().split(";"));
-			// tutaj trzeba siê zastanowiæ nad wybieraniem lotów, narazie
-			// bierzemy pierwszy z brzegu i rezerwujemy
-			// System.out.println("Dostêpne loty:");
-			// presentFlightData(msg.getContent().split(";"));
-
-			// System.out.println("Rezerwacja lotu: " +
-			// msg.getContent().split(";")[0]);
-			reserveFlight(getIndividualByName(msg.getContent().split(";")[0]),
-					msg.getConversationId());
+			reserveFlight(msg.getContent().split(";")[0], msg.getConversationId());
 
 			// testowo zacznijmy kolejn¹ rezerwacje dla tego samego agenta
 			// podczas trwania innej rezerwacji
@@ -93,7 +79,7 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 			break;
 
 		case RESERVATION_DONE:
-			System.out.println("Rezerwowanie zakoñczone powodzeniem");
+			handleReservation(msg);
 			break;
 
 		case INFORM_ABOUT_CHANGES:
@@ -113,6 +99,11 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 		}
 	}
 	
+	private void handleReservation(ACLMessage msg) {
+		reservationURI = msg.getContent();
+		AirportLogger.log(TAG + " Reserved seat");
+	}
+
 	public void askForFlight() {
 		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_IF);
 		msg.addReceiver(new AID(AgentAddresses.getTimetableAddress(),
@@ -120,46 +111,20 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 		msg.setLanguage(AgentAddresses.getLang());
 		msg.setOntology(Constants.ontoURL);
 		msg.setContent("Lot_do=Paris");
-		msg.setConversationId(HelperMethods
-				.generateMSGTag(StringMessages.FLIGHT_TABLE_REQUEST));
-		printStatus(msg);
+		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.FLIGHT_TABLE_REQUEST));
 
 		agent.send(msg);
 	}
 
-	public void reserveFlight(OWLNamedIndividual reservation, String convId) {
+	public void reserveFlight(String reservation, String convId) {
 		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_IF);
 		msg.addReceiver(new AID(AgentAddresses
 				.getPassangerServiceAgentAddress(), AID.ISLOCALNAME));
 		msg.setConversationId(HelperMethods.switchTag(
 				StringMessages.RESERVATION, convId));
-		printStatus(msg);
 		msg.setLanguage(AgentAddresses.getLang());
 		msg.setOntology(Constants.ontoURL);
-		msg.setContent(reservation.toString());
+		msg.setContent(reservation);
 		agent.send(msg);
-	}
-
-	// do usuniecia
-	private void printStatus(ACLMessage msg) {
-		try {
-			if (resData[0] == "null") {
-				resData[0] = msg.getConversationId();
-			} else {
-				if (HelperMethods.getConvId(resData[0]).equals(
-						HelperMethods.getConvId(msg.getConversationId()))) {
-					resData[0] = msg.getConversationId();
-				} else {
-					resData[1] = msg.getConversationId();
-				}
-			}
-			System.out.println("-------------------");
-			System.out.println("Status komunikatu 0: " + resData[0]);
-			System.out.println("Status komunikatu 1: " + resData[1]);
-			System.out.println("-------------------");
-
-		} catch (NullPointerException ex) {
-
-		}
 	}
 }
