@@ -2,13 +2,16 @@ package pl.ug.airport.behaviours;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -32,7 +35,7 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 
 	private String[] resData = { "null", "null" };
 
-	private String reservationURI; 
+	private String reservationUri; 
 	
 	public PassangerBehaviour(Agent _agent) {
 		this.agent = _agent;
@@ -100,8 +103,14 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 	}
 	
 	private void handleReservation(ACLMessage msg) {
-		reservationURI = msg.getContent();
-		AirportLogger.log(TAG + " Reserved seat");
+		reservationUri = msg.getContent();
+		Set<OWLLiteral> destination = reasoner.getDataPropertyValues(getIndividualByUri(reservationUri), getDataPropertyByName("Lot_do"));
+		Iterator<OWLLiteral> iterator = destination.iterator();
+		if(iterator.hasNext()){
+			AirportLogger.log(TAG + " Reserved seat. To " + iterator.next().getLiteral());
+		}else{
+			AirportLogger.log(TAG + " Reserved seat.");
+		}
 	}
 
 	public void askForFlight() {
@@ -110,7 +119,14 @@ public class PassangerBehaviour extends AirportBaseBehaviour {
 				AID.ISLOCALNAME));
 		msg.setLanguage(AgentAddresses.getLang());
 		msg.setOntology(Constants.ontoURL);
-		msg.setContent("Lot_do=Paris");
+		String city = "Paris";
+		switch(new Random().nextInt(3)){
+			case 1: city = "Warszawa"; break;
+			case 2: city = "Berlin"; break;
+			default: 
+		}
+		AirportLogger.log(TAG + " Looking for city " + city);
+		msg.setContent("Lot_do=" + city);
 		msg.setConversationId(HelperMethods.generateMSGTag(StringMessages.FLIGHT_TABLE_REQUEST));
 
 		agent.send(msg);

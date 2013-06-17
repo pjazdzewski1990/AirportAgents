@@ -59,7 +59,6 @@ public class FlightControlBehaviour extends AirportBaseBehaviour {
 		switch(HelperMethods.getConvTag(msg.getConversationId())) {
 		case REPORT_PRESENCE:
 			addPlaneToReady(msg.getContent().split(";")[1]);
-		
 		break;
 		case FAILURE_INFO:
 			reply = msg.createReply();
